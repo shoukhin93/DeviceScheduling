@@ -4,8 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import drowsiness.example.com.devicescheduling.database.model.DatabaseHelper;
+import drowsiness.example.com.devicescheduling.database.model.MyAlarms;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,10 +18,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        //SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
 
-        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        MyAlarms myAlarms = new MyAlarms();
+        myAlarms.setPhone("000");
+        myAlarms.setMessage("testing");
+        myAlarms.setImage("asd");
+        myAlarms.setSound("a");
+
+        long inserted = databaseHelper.insertNote(myAlarms);
+        Log.d(Constants.LOGTAG, "" + inserted);
+
+
+        /*AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(this, Alarms.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi); // Millisec * Second * Minute*/
     }
 }
