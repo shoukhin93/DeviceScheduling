@@ -1,4 +1,4 @@
-package drowsiness.example.com.devicescheduling.database.model;
+package drowsiness.example.com.devicescheduling.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import drowsiness.example.com.devicescheduling.Constants;
+import drowsiness.example.com.devicescheduling.database.model.AlarmHistory;
+import drowsiness.example.com.devicescheduling.database.model.MyAlarms;
 
 /**
  * Created by Shoukhin on 7/4/2018.
@@ -24,19 +26,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(MyAlarms.CREATE_TABLE);
-        Log.d(Constants.LOGTAG, "Database created");
+        db.execSQL(AlarmHistory.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + MyAlarms.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AlarmHistory.TABLE_NAME);
 
         // Create tables again
         onCreate(db);
 
     }
 
-    public long insertNote(MyAlarms myAlarms) {
+    public long insertMyAlarm(MyAlarms myAlarms) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -46,6 +49,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(MyAlarms.COLUMN_SOUND, myAlarms.getSound());
 
         long id = db.insert(MyAlarms.TABLE_NAME, null, values);
+        db.close();
+
+        return id;
+    }
+
+    public long insertAlarmHistory(AlarmHistory alarmHistory) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(AlarmHistory.COLUMN_PHONE, alarmHistory.getPhone());
+        values.put(AlarmHistory.COLUMN_MESSAGE, alarmHistory.getMessage());
+        values.put(AlarmHistory.COLUMN_IMAGE, alarmHistory.getImage());
+        values.put(AlarmHistory.COLUMN_SOUND, alarmHistory.getSound());
+
+        long id = db.insert(AlarmHistory.TABLE_NAME, null, values);
         db.close();
 
         return id;

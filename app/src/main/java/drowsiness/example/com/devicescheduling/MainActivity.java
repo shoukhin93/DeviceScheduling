@@ -1,16 +1,12 @@
 package drowsiness.example.com.devicescheduling;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import drowsiness.example.com.devicescheduling.database.model.DatabaseHelper;
-import drowsiness.example.com.devicescheduling.database.model.MyAlarms;
+import drowsiness.example.com.devicescheduling.database.DatabaseHelper;
+import drowsiness.example.com.devicescheduling.database.model.AlarmHistory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,15 +15,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        //SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
 
-        MyAlarms myAlarms = new MyAlarms();
+        AlarmHistory myAlarms = new AlarmHistory();
         myAlarms.setPhone("000");
         myAlarms.setMessage("testing");
         myAlarms.setImage("asd");
         myAlarms.setSound("a");
 
-        long inserted = databaseHelper.insertNote(myAlarms);
+        long inserted = databaseHelper.insertAlarmHistory(myAlarms);
         Log.d(Constants.LOGTAG, "" + inserted);
 
 
