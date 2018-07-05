@@ -25,7 +25,7 @@
         </activity>
 
         <receiver
-            android:name="test.example.com.devicescheduling.Alarms"
+            android:name="test.example.com.devicescheduling.alarmManager.Alarms"
             android:process=":remote" />
 
         <activity android:name="test.example.com.devicescheduling.ContentShow" />

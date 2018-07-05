@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import test.example.com.devicescheduling.alarmManager.Alarms;
+
 public class BootTimeBroadcastReceiver extends BroadcastReceiver {
 
     @Override

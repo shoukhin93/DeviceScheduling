@@ -1,4 +1,4 @@
-package test.example.com.devicescheduling;
+package test.example.com.devicescheduling.alarmManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import test.example.com.devicescheduling.Constants;
+import test.example.com.devicescheduling.ContentShow;
 
 /**
  * Created by Shoukhin on 5/8/2018.

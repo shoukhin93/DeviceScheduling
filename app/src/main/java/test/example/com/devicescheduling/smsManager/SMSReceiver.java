@@ -8,6 +8,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 
 import test.example.com.devicescheduling.Constants;
+import test.example.com.devicescheduling.alarmManager.ManagerOfAlarms;
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.AlarmHistory;
 
@@ -36,7 +37,10 @@ public class SMSReceiver extends BroadcastReceiver {
                         alarmHistory.setMessage(smsManager.getMessage());
 
                         DatabaseHelper dbHelper = new DatabaseHelper(context);
-                        dbHelper.insertAlarmHistory(alarmHistory);
+                        long id = dbHelper.insertAlarmHistory(alarmHistory);
+
+                        ManagerOfAlarms alarms = new ManagerOfAlarms(context);
+                        alarms.setAlarm("2018-07-05 22:50:18.429", (int) id);
                     }
                 }
             }
