@@ -4,10 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import drowsiness.example.com.devicescheduling.Constants;
 import drowsiness.example.com.devicescheduling.database.model.AlarmHistory;
+import drowsiness.example.com.devicescheduling.database.model.AllowedPhones;
 import drowsiness.example.com.devicescheduling.database.model.MyAlarms;
 
 /**
@@ -27,12 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(MyAlarms.CREATE_TABLE);
         db.execSQL(AlarmHistory.CREATE_TABLE);
+        db.execSQL(AllowedPhones.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + MyAlarms.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AlarmHistory.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AllowedPhones.TABLE_NAME);
 
         // Create tables again
         onCreate(db);
@@ -50,7 +51,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long id = db.insert(MyAlarms.TABLE_NAME, null, values);
         db.close();
-
         return id;
     }
 
@@ -65,7 +65,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long id = db.insert(AlarmHistory.TABLE_NAME, null, values);
         db.close();
+        return id;
+    }
 
+    public long insertAllowedPhones(AllowedPhones allowedPhones) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(AlarmHistory.COLUMN_PHONE, allowedPhones.getPhone());
+
+        long id = db.insert(AllowedPhones.TABLE_NAME, null, values);
+        db.close();
         return id;
     }
 }

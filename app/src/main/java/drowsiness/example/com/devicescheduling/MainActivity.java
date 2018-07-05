@@ -7,6 +7,7 @@ import android.util.Log;
 
 import drowsiness.example.com.devicescheduling.database.DatabaseHelper;
 import drowsiness.example.com.devicescheduling.database.model.AlarmHistory;
+import drowsiness.example.com.devicescheduling.database.model.AllowedPhones;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,13 +17,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
-        AlarmHistory myAlarms = new AlarmHistory();
+        AllowedPhones myAlarms = new AllowedPhones();
         myAlarms.setPhone("000");
-        myAlarms.setMessage("testing");
-        myAlarms.setImage("asd");
-        myAlarms.setSound("a");
 
-        long inserted = databaseHelper.insertAlarmHistory(myAlarms);
+        long inserted = databaseHelper.insertAllowedPhones(myAlarms);
         Log.d(Constants.LOGTAG, "" + inserted);
 
 
