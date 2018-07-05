@@ -1,9 +1,5 @@
 package test.example.com.devicescheduling.smsManager;
 
-import android.util.Log;
-
-import test.example.com.devicescheduling.Constants;
-
 /**
  * Created by Shoukhin on 7/5/2018.
  */
@@ -15,8 +11,8 @@ public class SMSManager {
     private String sound;
     private String message;
 
-    public SMSManager(String message) {
-        this.message = message;
+    public SMSManager(String fullMessage) {
+        this.fullMessage = fullMessage;
     }
 
     public String getFormattedSMS(String image, String sound, String message) {
@@ -31,9 +27,9 @@ public class SMSManager {
         try {
             splitMessages = fullMessage.split(",");
             if (splitMessages.length == 4 && splitMessages[0].equalsIgnoreCase(APP_NAME)) {
-                splitMessages[1] = image;
-                splitMessages[2] = sound;
-                splitMessages[3] = message;
+                image = splitMessages[1];
+                sound = splitMessages[2];
+                message = splitMessages[3];
                 return true;
             }
         } catch (Exception e) {

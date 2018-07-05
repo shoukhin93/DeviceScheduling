@@ -15,7 +15,6 @@ import test.example.com.devicescheduling.database.model.AlarmHistory;
 public class SMSReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
-        Log.d(Constants.LOGTAG, "on sms receive");
         final Bundle bundle = intent.getExtras();
 
         try {
@@ -37,8 +36,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         alarmHistory.setMessage(smsManager.getMessage());
 
                         DatabaseHelper dbHelper = new DatabaseHelper(context);
-                        long isInserted = dbHelper.insertAlarmHistory(alarmHistory);
-                        Log.d(Constants.LOGTAG, isInserted + "");
+                        dbHelper.insertAlarmHistory(alarmHistory);
                     }
                 }
             }
