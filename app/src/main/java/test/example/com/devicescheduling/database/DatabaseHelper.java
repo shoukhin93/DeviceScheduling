@@ -1,13 +1,13 @@
-package drowsiness.example.com.devicescheduling.database;
+package test.example.com.devicescheduling.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import drowsiness.example.com.devicescheduling.database.model.AlarmHistory;
-import drowsiness.example.com.devicescheduling.database.model.AllowedPhones;
-import drowsiness.example.com.devicescheduling.database.model.MyAlarms;
+import test.example.com.devicescheduling.database.model.AlarmHistory;
+import test.example.com.devicescheduling.database.model.AllowedPhones;
+import test.example.com.devicescheduling.database.model.MyAlarms;
 
 /**
  * Created by Shoukhin on 7/4/2018.

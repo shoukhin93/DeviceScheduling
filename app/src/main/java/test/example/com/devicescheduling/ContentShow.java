@@ -1,4 +1,4 @@
-package drowsiness.example.com.devicescheduling;
+package test.example.com.devicescheduling;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

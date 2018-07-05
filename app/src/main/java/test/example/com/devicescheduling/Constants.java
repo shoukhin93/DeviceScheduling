@@ -1,4 +1,4 @@
-package drowsiness.example.com.devicescheduling;
+package test.example.com.devicescheduling;
 
 /**
  * Created by Shoukhin on 5/8/2018.

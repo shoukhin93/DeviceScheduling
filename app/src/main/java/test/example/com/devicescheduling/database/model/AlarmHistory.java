@@ -1,11 +1,12 @@
-package drowsiness.example.com.devicescheduling.database.model;
+package test.example.com.devicescheduling.database.model;
 
 /**
- * Created by Shoukhin on 7/4/2018.
+ * Created by Shoukhin on 7/5/2018.
  */
 
-public class MyAlarms {
-    public static final String TABLE_NAME = "myalarms";
+public class AlarmHistory {
+
+    public static final String TABLE_NAME = "alarmhistory";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PHONE = "phone";
     public static final String COLUMN_MESSAGE = "message";
@@ -31,7 +32,7 @@ public class MyAlarms {
     private String sound;
     private String timestamp;
 
-    public MyAlarms() {
+    public AlarmHistory() {
 
     }
 

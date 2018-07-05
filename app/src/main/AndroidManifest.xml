@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="drowsiness.example.com.devicescheduling">
+    package="test.example.com.devicescheduling">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="test.example.com.devicescheduling.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,13 +21,13 @@
         </activity>
 
         <receiver
-            android:name=".Alarms"
+            android:name="test.example.com.devicescheduling.Alarms"
             android:process=":remote" />
 
-        <activity android:name=".ContentShow" />
+        <activity android:name="test.example.com.devicescheduling.ContentShow" />
 
         <receiver
-            android:name=".BootTimeBroadcastReceiver"
+            android:name="test.example.com.devicescheduling.BootTimeBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

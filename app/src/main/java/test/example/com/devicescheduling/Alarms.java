@@ -1,4 +1,4 @@
-package drowsiness.example.com.devicescheduling;
+package test.example.com.devicescheduling;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
