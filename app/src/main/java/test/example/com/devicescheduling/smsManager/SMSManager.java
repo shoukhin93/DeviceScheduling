@@ -10,13 +10,14 @@ public class SMSManager {
     private String image;
     private String sound;
     private String message;
+    private String timestamp;
 
     public SMSManager(String fullMessage) {
         this.fullMessage = fullMessage;
     }
 
-    public String getFormattedSMS(String image, String sound, String message) {
-        String formattedSMS = APP_NAME + "," + image + "," + sound +
+    public String getFormattedSMS() {
+        String formattedSMS = APP_NAME + "," + timestamp + "," + image + "," + sound +
                 "," + message;
 
         return formattedSMS;
@@ -26,16 +27,21 @@ public class SMSManager {
         String splitMessages[];
         try {
             splitMessages = fullMessage.split(",");
-            if (splitMessages.length == 4 && splitMessages[0].equalsIgnoreCase(APP_NAME)) {
-                image = splitMessages[1];
-                sound = splitMessages[2];
-                message = splitMessages[3];
+            if (splitMessages.length == 5 && splitMessages[0].equals(APP_NAME)) {
+                initializeVariables(splitMessages);
                 return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void initializeVariables(String[] splitMessages) {
+        timestamp = splitMessages[1];
+        image = splitMessages[2];
+        sound = splitMessages[3];
+        message = splitMessages[4];
     }
 
     public String getImage() {
@@ -60,5 +66,13 @@ public class SMSManager {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
