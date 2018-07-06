@@ -27,10 +27,9 @@ public class ManagerOfAlarms {
         Date alarmTime = stringToDateTime(time);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarms.class);
-        PendingIntent pi = PendingIntent.getBroadcast(context, id, i, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, i, 0);
         if (am != null) {
-            am.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime.getTime(),
-                    1000 * 60, pi);
+            am.set(AlarmManager.RTC_WAKEUP, alarmTime.getTime(), pendingIntent);
         }
     }
 

@@ -12,7 +12,6 @@ import test.example.com.devicescheduling.alarmManager.ManagerOfAlarms;
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.AlarmHistory;
 
-
 public class SMSReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
@@ -39,8 +38,8 @@ public class SMSReceiver extends BroadcastReceiver {
                         DatabaseHelper dbHelper = new DatabaseHelper(context);
                         long id = dbHelper.insertAlarmHistory(alarmHistory);
 
-                        ManagerOfAlarms alarms = new ManagerOfAlarms(context);
-                        alarms.setAlarm("2018-07-05 22:50:18.429", (int) id);
+                        //ManagerOfAlarms alarms = new ManagerOfAlarms(context);
+                        //alarms.setAlarm("2018-07-05 22:50:18.429", (int) id);
                     }
                 }
             }
