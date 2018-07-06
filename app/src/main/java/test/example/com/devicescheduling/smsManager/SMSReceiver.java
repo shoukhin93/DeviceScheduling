@@ -39,7 +39,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         long id = dbHelper.insertAlarmHistory(alarmHistory);
 
                         //ManagerOfAlarms alarms = new ManagerOfAlarms(context);
-                        //alarms.setAlarm("2018-07-05 22:50:18.429", (int) id);
+                        //alarms.setAlarm("2018-07-06 13:49:18.429", (int) id);
                     }
                 }
             }

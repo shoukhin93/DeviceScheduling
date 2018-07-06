@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import test.example.com.devicescheduling.Constants;
+
 /**
  * Created by Shoukhin on 7/5/2018.
  */
@@ -27,7 +29,9 @@ public class ManagerOfAlarms {
         Date alarmTime = stringToDateTime(time);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarms.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, i, 0);
+        i.putExtra(Constants.ID, id);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, i,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         if (am != null) {
             am.set(AlarmManager.RTC_WAKEUP, alarmTime.getTime(), pendingIntent);
         }

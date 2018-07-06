@@ -3,6 +3,7 @@ package test.example.com.devicescheduling.alarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,7 +25,12 @@ public class Alarms extends BroadcastReceiver {
             wl.acquire(10 * 60 * 1000L /*10 minutes*/);
         }
 
-        Log.d(Constants.LOGTAG, "Alarm! at on receive");
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            int ID = extras.getInt(Constants.ID);
+            Log.d(Constants.LOGTAG, "Alarm! Id = " + ID);
+        }
+
         Intent i = new Intent(context, ContentShow.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
