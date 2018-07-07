@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,14 +26,18 @@ public class AddSchedule extends AppCompatActivity {
     Button dateChangeButton;
     Button timeChangeButton;
     Button changeImageButton;
+    Button playSoundButton;
     Button saveButton;
+    ImageView selectedImageView;
     TextView timeTextView;
     TextView dateTextView;
+    Spinner soundListSpinner;
 
     int mYear, mMonth, mDay;
     int mHour, mMinute, mAmPm;
     Calendar mCurrentDate;
-    int imageResourseCode;
+    int imageResourceCode;
+    MediaPlayer mediaPlayer;
 
     private final int SELECT_IMAGE_REQUEST_CODE = 1;
 
@@ -90,6 +97,17 @@ public class AddSchedule extends AppCompatActivity {
             }
         });
 
+        playSoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String soundName = soundListSpinner.getSelectedItem().toString();
+                int soundResourceID = getSoundResourceIDFromName(soundName);
+                mediaPlayer = MediaPlayer.create(AddSchedule.this,
+                        soundResourceID);
+                mediaPlayer.start();
+            }
+        });
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,14 +122,23 @@ public class AddSchedule extends AppCompatActivity {
         });
     }
 
+    private int getSoundResourceIDFromName(String soundName) {
+        if (soundName.equals("1")) {
+            return R.raw.crazy_smile;
+        }
+        return 0;
+    }
+
     private void initializeVariables() {
         dateChangeButton = findViewById(R.id.date_change_button);
         timeChangeButton = findViewById(R.id.time_change_button);
         changeImageButton = findViewById(R.id.image_change_button);
+        playSoundButton = findViewById(R.id.sound_play_button);
         saveButton = findViewById(R.id.save_button);
         dateTextView = findViewById(R.id.date_text_view);
         timeTextView = findViewById(R.id.time_text_view);
-
+        selectedImageView = findViewById(R.id.selected_image_view);
+        soundListSpinner = findViewById(R.id.sound_list_spinner);
         mCurrentDate = Calendar.getInstance();
     }
 
@@ -140,16 +167,26 @@ public class AddSchedule extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == SELECT_IMAGE_REQUEST_CODE) {
-            if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("result");
-                imageResourseCode = data.getIntExtra(Constants.IMAGE_RESOURSE_CODE, 0);
-                Log.d(Constants.LOGTAG, imageResourseCode + "");
+            if (resultCode == Activity.RESULT_OK) {
+                imageResourceCode = data.getIntExtra(Constants.IMAGE_RESOURSE_CODE, 0);
+                setImageFromResource(imageResourceCode);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-                imageResourseCode = 1;
-                Log.d(Constants.LOGTAG, imageResourseCode + "");
+                imageResourceCode = 1;
             }
+        }
+    }
+
+    private void setImageFromResource(int imageResourceCode) {
+        selectedImageView.setImageResource(imageResourceCode);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer = null;
         }
     }
 }
