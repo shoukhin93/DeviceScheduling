@@ -1,5 +1,7 @@
 package test.example.com.devicescheduling.smsManager;
 
+import android.telephony.SmsManager;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +15,7 @@ public class SMSManager implements Serializable {
     private String sound;
     private String message;
     private String timestamp;
+    private String recieverPhoneNumber;
 
     public SMSManager() {
 
@@ -50,6 +53,17 @@ public class SMSManager implements Serializable {
         message = splitMessages[4];
     }
 
+    public void sendSMS() {
+        try {
+            String formattedSMS = getFormattedSMS();
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(recieverPhoneNumber, null,
+                    formattedSMS, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getImage() {
         return image;
     }
@@ -80,5 +94,13 @@ public class SMSManager implements Serializable {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getRecieverPhoneNumber() {
+        return recieverPhoneNumber;
+    }
+
+    public void setRecieverPhoneNumber(String recieverPhoneNumber) {
+        this.recieverPhoneNumber = recieverPhoneNumber;
     }
 }
