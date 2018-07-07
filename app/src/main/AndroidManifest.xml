@@ -16,9 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
 
         <receiver
             android:name=".alarmManager.Alarms"
@@ -43,6 +41,9 @@
         </receiver>
 
         <activity android:name=".AddSchedule">
+
+        </activity>
+        <activity android:name=".SelectImage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

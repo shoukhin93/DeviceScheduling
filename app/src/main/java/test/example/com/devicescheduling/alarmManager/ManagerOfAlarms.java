@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,14 +27,15 @@ public class ManagerOfAlarms {
     }
 
     public void setAlarm(String time, int id) {
-        Date alarmTime = stringToDateTime(time);
+        Calendar alarmTime = Calendar.getInstance();
+        alarmTime.setTimeInMillis(Long.parseLong(time));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarms.class);
         i.putExtra(Constants.ID, id);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, i,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         if (am != null) {
-            am.set(AlarmManager.RTC_WAKEUP, alarmTime.getTime(), pendingIntent);
+            am.set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), pendingIntent);
         }
     }
 
