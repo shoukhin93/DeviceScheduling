@@ -12,6 +12,10 @@ public class SMSManager {
     private String message;
     private String timestamp;
 
+    public SMSManager() {
+
+    }
+
     public SMSManager(String fullMessage) {
         this.fullMessage = fullMessage;
     }
@@ -28,7 +32,6 @@ public class SMSManager {
         try {
             splitMessages = fullMessage.split(",");
             if (splitMessages.length == 5 && splitMessages[0].equals(APP_NAME)) {
-                initializeVariables(splitMessages);
                 return true;
             }
         } catch (Exception e) {
@@ -37,7 +40,8 @@ public class SMSManager {
         return false;
     }
 
-    private void initializeVariables(String[] splitMessages) {
+    public void splitMessage(String fullMessage) {
+        String[] splitMessages = fullMessage.split(",");
         timestamp = splitMessages[1];
         image = splitMessages[2];
         sound = splitMessages[3];

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,16 +15,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import test.example.com.devicescheduling.smsManager.SMSManager;
+
 public class AddSchedule extends AppCompatActivity {
     Button dateChangeButton;
     Button timeChangeButton;
+    Button saveButton;
     TextView timeTextView;
     TextView dateTextView;
 
     int mYear, mMonth, mDay;
     int mHour, mMinute, mAmPm;
     Calendar mCurrentDate;
-    Calendar mCurrentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +65,27 @@ public class AddSchedule extends AppCompatActivity {
 
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                mCurrentTime.set(Calendar.HOUR, hourOfDay);
-                                mCurrentTime.set(Calendar.MINUTE, minute);
+                                mCurrentDate.set(Calendar.HOUR, hourOfDay);
+                                mCurrentDate.set(Calendar.MINUTE, minute);
                                 setCurrentTimeText();
                             }
-                        }, mYear, mMonth, false);
+                        }, mHour, mMinute, false);
 
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SMSManager smsManager = new SMSManager();
+                smsManager.setImage("1");
+                smsManager.setSound("1");
+                smsManager.setMessage("testing");
+                smsManager.setTimestamp(String.valueOf(mCurrentDate.getTimeInMillis()));
+                String message = smsManager.getFormattedSMS();
+                Log.d(Constants.LOGTAG, message);
             }
         });
     }
@@ -77,11 +93,11 @@ public class AddSchedule extends AppCompatActivity {
     private void initializeVariables() {
         dateChangeButton = findViewById(R.id.date_change_button);
         timeChangeButton = findViewById(R.id.time_change_button);
+        saveButton = findViewById(R.id.save_button);
         dateTextView = findViewById(R.id.date_text_view);
         timeTextView = findViewById(R.id.time_text_view);
 
         mCurrentDate = Calendar.getInstance();
-        mCurrentTime = Calendar.getInstance();
     }
 
     private void setCurrentDateText() {
@@ -95,13 +111,13 @@ public class AddSchedule extends AppCompatActivity {
     }
 
     private void setCurrentTimeText() {
-        mHour = mCurrentTime.get(Calendar.HOUR);
-        mMinute = mCurrentTime.get(Calendar.MINUTE);
-        mAmPm = mCurrentTime.get(Calendar.AM_PM);
+        mHour = mCurrentDate.get(Calendar.HOUR);
+        mMinute = mCurrentDate.get(Calendar.MINUTE);
+        mAmPm = mCurrentDate.get(Calendar.AM_PM);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a",
                 Locale.ENGLISH);
-        String tempTime = dateFormat.format(mCurrentTime.getTime());
+        String tempTime = dateFormat.format(mCurrentDate.getTime());
         timeTextView.setText(tempTime);
     }
 }

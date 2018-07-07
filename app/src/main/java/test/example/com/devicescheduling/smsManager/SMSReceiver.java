@@ -21,19 +21,23 @@ public class SMSReceiver extends BroadcastReceiver {
             if (bundle != null) {
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
                 for (int i = 0; i < pdusObj.length; i++) {
+
                     SmsMessage currentMessage = SmsMessage
                             .createFromPdu((byte[]) pdusObj[i]);
                     String SMSSenderNumber = currentMessage
                             .getDisplayOriginatingAddress();
+
                     String message = currentMessage.getDisplayMessageBody();
                     SMSManager smsManager = new SMSManager(message);
-
                     if (smsManager.isSMSForThisApp()) {
+                        smsManager.splitMessage(message);
+
                         AlarmHistory alarmHistory = new AlarmHistory();
                         alarmHistory.setPhone(SMSSenderNumber);
                         alarmHistory.setImage(smsManager.getImage());
                         alarmHistory.setSound(smsManager.getSound());
                         alarmHistory.setMessage(smsManager.getMessage());
+                        alarmHistory.setTimestamp(smsManager.getTimestamp());
 
                         DatabaseHelper dbHelper = new DatabaseHelper(context);
                         long id = dbHelper.insertAlarmHistory(alarmHistory);
