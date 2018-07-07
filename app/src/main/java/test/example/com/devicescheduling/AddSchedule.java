@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,11 +33,13 @@ public class AddSchedule extends AppCompatActivity {
     TextView timeTextView;
     TextView dateTextView;
     Spinner soundListSpinner;
+    EditText messageEditText;
 
     int mYear, mMonth, mDay;
     int mHour, mMinute, mAmPm;
     Calendar mCurrentDate;
-    int imageResourceCode;
+    int imageResourceID;
+    int soundResourceID;
     MediaPlayer mediaPlayer;
 
     private final int SELECT_IMAGE_REQUEST_CODE = 1;
@@ -101,10 +104,10 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String soundName = soundListSpinner.getSelectedItem().toString();
-                int soundResourceID = getSoundResourceIDFromName(soundName);
+                soundResourceID = getSoundResourceIDFromName(soundName);
                 mediaPlayer = MediaPlayer.create(AddSchedule.this,
                         soundResourceID);
-                mediaPlayer.start();
+                //mediaPlayer.start();
             }
         });
 
@@ -112,12 +115,14 @@ public class AddSchedule extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SMSManager smsManager = new SMSManager();
-                smsManager.setImage("1");
-                smsManager.setSound("1");
-                smsManager.setMessage("testing");
+                smsManager.setImage(String.valueOf(imageResourceID));
+                smsManager.setSound(String.valueOf(soundResourceID));
+                smsManager.setMessage(messageEditText.getText().toString());
                 smsManager.setTimestamp(String.valueOf(mCurrentDate.getTimeInMillis()));
-                String message = smsManager.getFormattedSMS();
-                Log.d(Constants.LOGTAG, message);
+
+                Intent intent = new Intent(AddSchedule.this, SetSchedule.class);
+                intent.putExtra(Constants.SMS_MANAGER, smsManager);
+                startActivity(intent);
             }
         });
     }
@@ -139,7 +144,12 @@ public class AddSchedule extends AppCompatActivity {
         timeTextView = findViewById(R.id.time_text_view);
         selectedImageView = findViewById(R.id.selected_image_view);
         soundListSpinner = findViewById(R.id.sound_list_spinner);
+        messageEditText = findViewById(R.id.message_edit_text);
         mCurrentDate = Calendar.getInstance();
+
+        // Default values
+        imageResourceID = R.drawable.pic1;
+        soundResourceID = R.raw.crazy_smile;
     }
 
     private void setCurrentDateText() {
@@ -168,11 +178,11 @@ public class AddSchedule extends AppCompatActivity {
 
         if (requestCode == SELECT_IMAGE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                imageResourceCode = data.getIntExtra(Constants.IMAGE_RESOURSE_CODE, 0);
-                setImageFromResource(imageResourceCode);
+                imageResourceID = data.getIntExtra(Constants.IMAGE_RESOURSE_CODE, 0);
+                setImageFromResource(imageResourceID);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                imageResourceCode = 1;
+                imageResourceID = 1;
             }
         }
     }

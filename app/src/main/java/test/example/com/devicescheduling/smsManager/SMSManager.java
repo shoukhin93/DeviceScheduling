@@ -1,10 +1,12 @@
 package test.example.com.devicescheduling.smsManager;
 
+import java.io.Serializable;
+
 /**
  * Created by Shoukhin on 7/5/2018.
  */
 
-public class SMSManager {
+public class SMSManager implements Serializable {
     private static final String APP_NAME = "deviceScheduling";
     private String fullMessage;
     private String image;
