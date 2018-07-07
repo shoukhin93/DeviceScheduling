@@ -7,4 +7,5 @@ package test.example.com.devicescheduling;
 public class Constants {
     public static final String LOGTAG ="logtag";
     public static final String ID = "id";
+    public static final String IMAGE_RESOURSE_CODE = "imageresourcecode";
 }

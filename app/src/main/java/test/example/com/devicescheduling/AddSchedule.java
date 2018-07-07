@@ -1,7 +1,9 @@
 package test.example.com.devicescheduling;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import test.example.com.devicescheduling.smsManager.SMSManager;
 public class AddSchedule extends AppCompatActivity {
     Button dateChangeButton;
     Button timeChangeButton;
+    Button changeImageButton;
     Button saveButton;
     TextView timeTextView;
     TextView dateTextView;
@@ -27,6 +30,9 @@ public class AddSchedule extends AppCompatActivity {
     int mYear, mMonth, mDay;
     int mHour, mMinute, mAmPm;
     Calendar mCurrentDate;
+    int imageResourseCode;
+
+    private final int SELECT_IMAGE_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,14 @@ public class AddSchedule extends AppCompatActivity {
             }
         });
 
+        changeImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddSchedule.this, SelectImage.class);
+                startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE);
+            }
+        });
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +107,7 @@ public class AddSchedule extends AppCompatActivity {
     private void initializeVariables() {
         dateChangeButton = findViewById(R.id.date_change_button);
         timeChangeButton = findViewById(R.id.time_change_button);
+        changeImageButton = findViewById(R.id.image_change_button);
         saveButton = findViewById(R.id.save_button);
         dateTextView = findViewById(R.id.date_text_view);
         timeTextView = findViewById(R.id.time_text_view);
@@ -119,5 +134,22 @@ public class AddSchedule extends AppCompatActivity {
                 Locale.ENGLISH);
         String tempTime = dateFormat.format(mCurrentDate.getTime());
         timeTextView.setText(tempTime);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == SELECT_IMAGE_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                imageResourseCode = data.getIntExtra(Constants.IMAGE_RESOURSE_CODE, 0);
+                Log.d(Constants.LOGTAG, imageResourseCode + "");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+                imageResourseCode = 1;
+                Log.d(Constants.LOGTAG, imageResourseCode + "");
+            }
+        }
     }
 }

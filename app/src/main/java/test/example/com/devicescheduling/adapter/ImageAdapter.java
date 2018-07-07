@@ -1,8 +1,11 @@
 package test.example.com.devicescheduling.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import test.example.com.devicescheduling.Constants;
 import test.example.com.devicescheduling.R;
 
 /**
@@ -18,9 +22,9 @@ import test.example.com.devicescheduling.R;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ItemViewHolder> {
     private List<Integer> imageList;
-    private Context context;
+    private Activity context;
 
-    public ImageAdapter(List<Integer> imageList, Context context) {
+    public ImageAdapter(List<Integer> imageList, Activity context) {
         this.imageList = imageList;
         this.context = context;
     }
@@ -34,8 +38,17 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ItemViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ItemViewHolder holder, final int position) {
         holder.itemImage.setImageResource(imageList.get(position));
+        holder.itemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra(Constants.IMAGE_RESOURSE_CODE, imageList.get(position));
+                context.setResult(Activity.RESULT_OK, returnIntent);
+                context.finish();
+            }
+        });
     }
 
     @Override
@@ -52,3 +65,4 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ItemViewHold
         }
     }
 }
+
