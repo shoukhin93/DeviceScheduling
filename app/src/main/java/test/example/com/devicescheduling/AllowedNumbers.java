@@ -1,5 +1,7 @@
 package test.example.com.devicescheduling;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,14 +62,30 @@ public class AllowedNumbers extends AppCompatActivity {
                 .OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long id) {
+                                           final int position, long id) {
 
-                String key = sharedPrefValueIndexes.get(position);
-                SharedPrefManager manager = SharedPrefManager
-                        .getInstance(AllowedNumbers.this);
-                manager.removeValue(key);
-                showAllAllowedNumbers();
+                AlertDialog.Builder alertDialogBuilder = new
+                        AlertDialog.Builder(AllowedNumbers.this);
+                alertDialogBuilder.setMessage("Are you sure want to delete?");
+                alertDialogBuilder.setPositiveButton("yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                removePhone(position);
+                                showAllAllowedNumbers();
+                            }
+                        });
 
+                alertDialogBuilder.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
                 return true;
             }
         });
@@ -98,5 +116,12 @@ public class AllowedNumbers extends AppCompatActivity {
 
         // Saving the index number of map to update / delete data
         sharedPrefValueIndexes = new ArrayList<>(allowedNumbers.keySet());
+    }
+
+    private void removePhone(int position) {
+        String key = sharedPrefValueIndexes.get(position);
+        SharedPrefManager manager = SharedPrefManager
+                .getInstance(AllowedNumbers.this);
+        manager.removeValue(key);
     }
 }
