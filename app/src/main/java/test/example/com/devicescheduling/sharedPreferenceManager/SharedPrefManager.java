@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import java.util.Map;
+
 import test.example.com.devicescheduling.Constants;
 
 public class SharedPrefManager {
@@ -38,9 +40,15 @@ public class SharedPrefManager {
         return sharedPreferences.getString(number, null);
     }
 
-    public boolean isAllowed(String number){
+    public boolean isAllowed(String number) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
                 Context.MODE_PRIVATE);
         return sharedPreferences.getString(number, null) != null;
+    }
+
+    public Map<String, ?> getAllAllowedNumbers() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
+                Context.MODE_PRIVATE);
+        return sharedPreferences.getAll();
     }
 }
