@@ -3,6 +3,7 @@ package test.example.com.devicescheduling.smsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -11,6 +12,7 @@ import test.example.com.devicescheduling.Constants;
 import test.example.com.devicescheduling.alarmManager.ManagerOfAlarms;
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.AlarmHistory;
+import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManager;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -27,23 +29,28 @@ public class SMSReceiver extends BroadcastReceiver {
                     String SMSSenderNumber = currentMessage
                             .getDisplayOriginatingAddress();
 
-                    String message = currentMessage.getDisplayMessageBody();
-                    SMSManager smsManager = new SMSManager(message);
-                    if (smsManager.isSMSForThisApp()) {
-                        smsManager.splitMessage(message);
+                    // Checking if sender is in allowed group
+                    SharedPrefManager manager = SharedPrefManager.getInstance(context);
+                    if (manager.isAllowed(SMSSenderNumber)) {
+                        String message = currentMessage.getDisplayMessageBody();
+                        SMSManager smsManager = new SMSManager(message);
 
-                        AlarmHistory alarmHistory = new AlarmHistory();
-                        alarmHistory.setPhone(SMSSenderNumber);
-                        alarmHistory.setImage(smsManager.getImage());
-                        alarmHistory.setSound(smsManager.getSound());
-                        alarmHistory.setMessage(smsManager.getMessage());
-                        alarmHistory.setTimestamp(smsManager.getTimestamp());
+                        if (smsManager.isSMSForThisApp()) {
+                            smsManager.splitMessage(message);
 
-                        DatabaseHelper dbHelper = new DatabaseHelper(context);
-                        long id = dbHelper.insertAlarmHistory(alarmHistory);
+                            AlarmHistory alarmHistory = new AlarmHistory();
+                            alarmHistory.setPhone(SMSSenderNumber);
+                            alarmHistory.setImage(smsManager.getImage());
+                            alarmHistory.setSound(smsManager.getSound());
+                            alarmHistory.setMessage(smsManager.getMessage());
+                            alarmHistory.setTimestamp(smsManager.getTimestamp());
 
-                        //ManagerOfAlarms alarms = new ManagerOfAlarms(context);
-                        //alarms.setAlarm("2018-07-06 13:49:18.429", (int) id);
+                            DatabaseHelper dbHelper = new DatabaseHelper(context);
+                            long id = dbHelper.insertAlarmHistory(alarmHistory);
+
+                            //ManagerOfAlarms alarms = new ManagerOfAlarms(context);
+                            //alarms.setAlarm("2018-07-06 13:49:18.429", (int) id);
+                        }
                     }
                 }
             }
@@ -51,5 +58,4 @@ public class SMSReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
     }
-
 }
