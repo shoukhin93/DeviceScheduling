@@ -15,22 +15,34 @@
         <EditText
             android:id="@+id/phone_number_edit_text"
             android:layout_width="wrap_content"
-            android:inputType="phone"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="Enter Number" />
-
+            android:hint="Enter Number"
+            android:inputType="phone" />
         <Button
-            android:id="@+id/save_button"
+            android:id="@+id/show_contacts_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Save" />
+
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Name" />
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save" />
 
     <ListView
         android:id="@+id/allowed_numbers_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -18,6 +18,7 @@ import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManag
 public class AllowedNumbers extends AppCompatActivity {
     Button saveButton;
     EditText phoneNumberEditText;
+    EditText nameEditText;
     ListView allowedNumbersListView;
     Map<String, ?> allowedNumbers;
 
@@ -32,11 +33,12 @@ public class AllowedNumbers extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String number = phoneNumberEditText.getText().toString();
-                String name = "tes";
+                String name = nameEditText.getText().toString();
                 SharedPrefManager manager = SharedPrefManager.getInstance(AllowedNumbers.this);
-                //manager.saveAllowedNumber(number, name);
+                manager.saveAllowedNumber(number, name);
                 Toast.makeText(getApplicationContext(), "Number Saved!",
                         Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -44,13 +46,16 @@ public class AllowedNumbers extends AppCompatActivity {
     private void initializeVariables() {
         saveButton = findViewById(R.id.save_button);
         phoneNumberEditText = findViewById(R.id.phone_number_edit_text);
+        nameEditText = findViewById(R.id.name_edit_text);
         allowedNumbersListView = findViewById(R.id.allowed_numbers_list_view);
-        SharedPrefManager manager = SharedPrefManager.getInstance(this);
-        allowedNumbers = manager.getAllAllowedNumbers();
+
     }
 
     private void showAllAllowedNumbers() {
+        SharedPrefManager manager = SharedPrefManager.getInstance(this);
+        allowedNumbers = manager.getAllAllowedNumbers();
         ArrayList<String> tempAllowedNumbers = new ArrayList<>();
+
         for (Map.Entry<String, ?> allowedNumber : allowedNumbers.entrySet()) {
             String tempAllowedNumber = allowedNumber.getKey() + " ("
                     + allowedNumber.getValue() + ")";
