@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,9 @@ public class AllowedNumbers extends AppCompatActivity {
     EditText phoneNumberEditText;
     EditText nameEditText;
     ListView allowedNumbersListView;
+
     Map<String, ?> allowedNumbers;
+    ArrayList<String> sharedPrefValueIndexes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,33 @@ public class AllowedNumbers extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Number Saved!",
                         Toast.LENGTH_SHORT).show();
 
+                showAllAllowedNumbers();
+            }
+        });
+
+        allowedNumbersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String key = sharedPrefValueIndexes.get(position);
+                String name = (String) allowedNumbers.get(key);
+                phoneNumberEditText.setText(key);
+                nameEditText.setText(name);
+            }
+        });
+
+        allowedNumbersListView.setOnItemLongClickListener(new AdapterView
+                .OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+
+                String key = sharedPrefValueIndexes.get(position);
+                SharedPrefManager manager = SharedPrefManager
+                        .getInstance(AllowedNumbers.this);
+                manager.removeValue(key);
+                showAllAllowedNumbers();
+
+                return true;
             }
         });
     }
@@ -48,7 +78,6 @@ public class AllowedNumbers extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.phone_number_edit_text);
         nameEditText = findViewById(R.id.name_edit_text);
         allowedNumbersListView = findViewById(R.id.allowed_numbers_list_view);
-
     }
 
     private void showAllAllowedNumbers() {
@@ -62,9 +91,12 @@ public class AllowedNumbers extends AppCompatActivity {
             tempAllowedNumbers.add(tempAllowedNumber);
         }
 
-        ArrayAdapter<String> allowedNumbersAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> allowedNumbersAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1,
                 tempAllowedNumbers);
         allowedNumbersListView.setAdapter(allowedNumbersAdapter);
+
+        // Saving the index number of map to update / delete data
+        sharedPrefValueIndexes = new ArrayList<>(allowedNumbers.keySet());
     }
 }

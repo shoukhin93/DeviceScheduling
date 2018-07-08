@@ -51,4 +51,12 @@ public class SharedPrefManager {
                 Context.MODE_PRIVATE);
         return sharedPreferences.getAll();
     }
+
+    public void removeValue(String key) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
 }
