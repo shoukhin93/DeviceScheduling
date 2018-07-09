@@ -2,6 +2,7 @@ package test.example.com.devicescheduling.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -77,5 +78,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long id = db.insert(AllowedPhones.TABLE_NAME, null, values);
         db.close();
         return id;
+    }
+
+    public Cursor getAllScheduleHistory() {
+        String RAW_QUERY = "select * from " + AlarmHistory.TABLE_NAME;
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(RAW_QUERY, null);
     }
 }
