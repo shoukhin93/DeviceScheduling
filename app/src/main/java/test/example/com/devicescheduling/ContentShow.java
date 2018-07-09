@@ -37,8 +37,12 @@ public class ContentShow extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         Cursor detailInfo = databaseHelper.getDetailInfo(id, tableName);
         detailInfo.moveToFirst();
-        Log.d(Constants.LOGTAG, detailInfo.getString
-                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_PHONE)));
+        // TODO: change image resource id
+        int imageResourceID = R.drawable.pic1;
+        String message = detailInfo.getString
+                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
+        imageView.setImageResource(imageResourceID);
+        messageTextView.setText(message);
 
     }
 }
