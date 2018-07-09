@@ -1,4 +1,4 @@
-package test.example.com.devicescheduling.smsManager;
+package test.example.com.devicescheduling.broadcastReceivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +11,7 @@ import test.example.com.devicescheduling.Constants;
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManager;
+import test.example.com.devicescheduling.smsManager.SMSManager;
 
 public class SMSReceiver extends BroadcastReceiver {
 

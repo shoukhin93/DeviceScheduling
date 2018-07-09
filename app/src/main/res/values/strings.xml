@@ -11,7 +11,8 @@
     <string-array name="phone_status">
         <item>Default</item>
         <item>Silent</item>
-        <item>Sound on</item>
+        <item>Vibrate</item>
+        <item>Ringing</item>
     </string-array>
 
     <string name="title_activity_home">Home</string>

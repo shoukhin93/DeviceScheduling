@@ -1,5 +1,7 @@
 package test.example.com.devicescheduling.resourceManager;
 
+import android.media.AudioManager;
+
 import test.example.com.devicescheduling.R;
 
 /**
@@ -47,11 +49,13 @@ public class ResourceManager {
     public static int mapPhoneStatusFromName(String status) {
         switch (status) {
             case "Silent":
-                return 1;
-            case "Sound on":
-                return 1;
+                return AudioManager.RINGER_MODE_SILENT;
+            case "Vibrate":
+                return AudioManager.RINGER_MODE_VIBRATE;
+            case "Ringing":
+                return AudioManager.RINGER_MODE_NORMAL;
             default:
-                return 0;
+                return -1;
         }
     }
 }
