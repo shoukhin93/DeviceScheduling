@@ -2,6 +2,7 @@ package test.example.com.devicescheduling;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,9 +54,31 @@ public class SetSchedule extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkPermission();
-                smsManager.setReceiverPhoneNumber(phoneNumberEditText.getText().toString());
-                Log.d(Constants.LOGTAG, smsManager.getFormattedSMS());
-                smsManager.sendSMS();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog
+                        .Builder(SetSchedule.this);
+                alertDialogBuilder.setMessage("Are you sure want" +
+                        "to set schedule? Standard SMS charge may be applicable");
+                        alertDialogBuilder.setPositiveButton("yes",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        smsManager.setReceiverPhoneNumber
+                                                (phoneNumberEditText.getText().toString());
+                                        smsManager.sendSMS();
+                                    }
+                                });
+
+                alertDialogBuilder.setNegativeButton("No",new
+                        DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
@@ -66,7 +90,6 @@ public class SetSchedule extends AppCompatActivity {
                 startActivityForResult(intent, PICK_CONTACT);
             }
         });
-
     }
 
     private void checkPermission() {
@@ -89,9 +112,12 @@ public class SetSchedule extends AppCompatActivity {
             case (PICK_CONTACT):
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
-                    Cursor c = managedQuery(contactData, null, null, null, null);
+                    Cursor c = managedQuery(contactData, null,
+                            null, null, null);
                     if (c.moveToFirst()) {
-                        String contactNumber = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        String contactNumber = c.getString(
+                                c.getColumnIndexOrThrow(ContactsContract.
+                                        CommonDataKinds.Phone.NUMBER));
                         phoneNumberEditText.setText(contactNumber);
                     }
                 }

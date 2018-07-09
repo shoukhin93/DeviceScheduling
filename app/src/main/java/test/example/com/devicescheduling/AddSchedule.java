@@ -118,7 +118,7 @@ public class AddSchedule extends AppCompatActivity {
             public void onClick(View v) {
                 if (!isMessageValidated(messageEditText.getText().toString())) {
                     Toast.makeText(getApplicationContext(),
-                            "You can not use ',' character in message!",
+                            "You can not use '>' character in message!",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
