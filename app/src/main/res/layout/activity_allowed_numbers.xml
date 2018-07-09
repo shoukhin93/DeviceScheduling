@@ -19,12 +19,14 @@
             android:layout_weight="2"
             android:hint="Enter Number"
             android:inputType="phone" />
-        <Button
-            android:id="@+id/show_contacts_button"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/pick_contact"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save" />
+            android:clickable="true"
+            android:src="@drawable/ic_perm_contact_calendar_white_24dp"
+            app:fabSize="mini"/>
 
     </LinearLayout>
 

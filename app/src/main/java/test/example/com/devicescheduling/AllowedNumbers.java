@@ -1,6 +1,12 @@
 package test.example.com.devicescheduling;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,9 +29,12 @@ public class AllowedNumbers extends AppCompatActivity {
     EditText phoneNumberEditText;
     EditText nameEditText;
     ListView allowedNumbersListView;
+    FloatingActionButton pickContact;
 
     Map<String, ?> allowedNumbers;
     ArrayList<String> sharedPrefValueIndexes;
+
+    private final int PICK_CONTACT = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +98,15 @@ public class AllowedNumbers extends AppCompatActivity {
                 return true;
             }
         });
+
+        pickContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+                startActivityForResult(intent, PICK_CONTACT);
+            }
+        });
     }
 
     private void initializeVariables() {
@@ -96,6 +114,7 @@ public class AllowedNumbers extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.phone_number_edit_text);
         nameEditText = findViewById(R.id.name_edit_text);
         allowedNumbersListView = findViewById(R.id.allowed_numbers_list_view);
+        pickContact = findViewById(R.id.pick_contact);
     }
 
     private void showAllAllowedNumbers() {
@@ -123,5 +142,26 @@ public class AllowedNumbers extends AppCompatActivity {
         SharedPrefManager manager = SharedPrefManager
                 .getInstance(AllowedNumbers.this);
         manager.removeValue(key);
+    }
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        switch (reqCode) {
+            case (PICK_CONTACT):
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c = managedQuery(contactData, null,
+                            null, null, null);
+                    if (c.moveToFirst()) {
+                        String contactNumber = c.getString(
+                                c.getColumnIndexOrThrow(ContactsContract.
+                                        CommonDataKinds.Phone.NUMBER));
+                        phoneNumberEditText.setText(contactNumber);
+                    }
+                }
+                break;
+        }
     }
 }
