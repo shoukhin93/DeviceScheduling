@@ -85,4 +85,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(RAW_QUERY, null);
     }
+
+    public Cursor getMyHistory() {
+        String RAW_QUERY = "select * from " + MyAlarmsDBModel.TABLE_NAME;
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(RAW_QUERY, null);
+    }
 }

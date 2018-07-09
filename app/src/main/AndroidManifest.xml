@@ -42,13 +42,14 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".AddSchedule"></activity>
+        <activity android:name=".AddSchedule" />
         <activity android:name=".SelectImage" />
         <activity android:name=".SetSchedule" />
-        <activity android:name=".AllowedNumbers">
+        <activity android:name=".AllowedNumbers"></activity>
+        <activity android:name=".AlarmHistory">
 
         </activity>
-        <activity android:name=".AlarmHistory">
+        <activity android:name=".MyAlarms">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
