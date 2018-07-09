@@ -109,6 +109,25 @@
             android:text="Play" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Receiver's phone status : " />
+
+        <Spinner
+            android:id="@+id/phone_status_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/phone_status" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/message_edit_text"
         android:layout_width="match_parent"

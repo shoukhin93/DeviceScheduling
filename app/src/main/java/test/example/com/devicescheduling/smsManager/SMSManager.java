@@ -19,7 +19,9 @@ public class SMSManager implements Serializable {
     private String message;
     private String timestamp;
     private String receiverPhoneNumber;
-    public static final String SEPARATOR_CHARACTER = ">";
+    private String phoneStatus;
+    private final String SEPARATOR_CHARACTER = ">";
+    private final int ACCEPTED_LENGTH_OF_MESSAGE = 6;
 
     public SMSManager() {
 
@@ -32,7 +34,7 @@ public class SMSManager implements Serializable {
     public String getFormattedSMS() {
         String formattedSMS = APP_NAME + SEPARATOR_CHARACTER + timestamp +
                 SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
-                SEPARATOR_CHARACTER + message;
+                SEPARATOR_CHARACTER + phoneStatus + SEPARATOR_CHARACTER + message;
 
         return formattedSMS;
     }
@@ -41,7 +43,8 @@ public class SMSManager implements Serializable {
         String splitMessages[];
         try {
             splitMessages = fullMessage.split(SEPARATOR_CHARACTER);
-            if (splitMessages.length == 5 && splitMessages[0].equals(APP_NAME)) {
+            if (splitMessages.length == ACCEPTED_LENGTH_OF_MESSAGE
+                    && splitMessages[0].equals(APP_NAME)) {
                 return true;
             }
         } catch (Exception e) {
@@ -55,7 +58,8 @@ public class SMSManager implements Serializable {
         timestamp = splitMessages[1];
         image = splitMessages[2];
         sound = splitMessages[3];
-        message = splitMessages[4];
+        phoneStatus = splitMessages[4];
+        message = splitMessages[5];
     }
 
     public void sendSMS() {
@@ -107,5 +111,13 @@ public class SMSManager implements Serializable {
 
     public void setReceiverPhoneNumber(String receiverPhoneNumber) {
         this.receiverPhoneNumber = receiverPhoneNumber;
+    }
+
+    public String getPhoneStatus() {
+        return phoneStatus;
+    }
+
+    public void setPhoneStatus(String phoneStatus) {
+        this.phoneStatus = phoneStatus;
     }
 }

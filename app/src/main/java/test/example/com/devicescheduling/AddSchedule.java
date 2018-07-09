@@ -35,6 +35,7 @@ public class AddSchedule extends AppCompatActivity {
     TextView timeTextView;
     TextView dateTextView;
     Spinner soundListSpinner;
+    Spinner phoneStatusSpinner;
     EditText messageEditText;
 
     int mYear, mMonth, mDay;
@@ -126,11 +127,14 @@ public class AddSchedule extends AppCompatActivity {
                 int mappedImageResourceID = ResourceManager.mapImageResource(imageResourceID);
                 int mappedSoundResourceID = ResourceManager.
                         mapSoundResource(soundResourceID);
+                int mappedPhoneStatus = ResourceManager.mapPhoneStatusFromName(phoneStatusSpinner
+                        .getSelectedItem().toString());
 
                 SMSManager smsManager = new SMSManager();
                 smsManager.setImage(String.valueOf(mappedImageResourceID));
                 smsManager.setSound(String.valueOf(mappedSoundResourceID));
                 smsManager.setMessage(messageEditText.getText().toString());
+                smsManager.setPhoneStatus(String.valueOf(mappedPhoneStatus));
                 smsManager.setTimestamp(String.valueOf(mCurrentDate.getTimeInMillis()));
 
                 Intent intent = new Intent(AddSchedule.this, SetSchedule.class);
@@ -157,6 +161,7 @@ public class AddSchedule extends AppCompatActivity {
         timeTextView = findViewById(R.id.time_text_view);
         selectedImageView = findViewById(R.id.selected_image_view);
         soundListSpinner = findViewById(R.id.sound_list_spinner);
+        phoneStatusSpinner = findViewById(R.id.phone_status_spinner);
         messageEditText = findViewById(R.id.message_edit_text);
         mCurrentDate = Calendar.getInstance();
 

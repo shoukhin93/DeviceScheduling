@@ -17,7 +17,7 @@ public class ResourceManager {
         }
     }
 
-    public static int getMappedImageResourceID(int imageResourceID){
+    public static int getMappedImageResourceID(int imageResourceID) {
         switch (imageResourceID) {
             case 1:
                 return R.drawable.pic1;
@@ -35,12 +35,23 @@ public class ResourceManager {
         }
     }
 
-    public static int getMappedSoundResourceID(int soundResourceID){
+    public static int getMappedSoundResourceID(int soundResourceID) {
         switch (soundResourceID) {
             case 1:
                 return R.raw.crazy_smile;
             default:
                 return R.raw.crazy_smile;
+        }
+    }
+
+    public static int mapPhoneStatusFromName(String status) {
+        switch (status) {
+            case "Silent":
+                return 1;
+            case "Sound on":
+                return 1;
+            default:
+                return 0;
         }
     }
 }
