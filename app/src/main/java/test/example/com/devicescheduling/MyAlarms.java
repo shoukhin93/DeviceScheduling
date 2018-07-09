@@ -37,6 +37,8 @@ public class MyAlarms extends AppCompatActivity {
         while (scheduleHistory.moveToNext()) {
             HistoryModel historyModel = new HistoryModel();
             // TODO: change image resource id static to dynamic
+            historyModel.setId(scheduleHistory.getInt
+                    (scheduleHistory.getColumnIndex(MyAlarmsDBModel.COLUMN_ID)));
             historyModel.setImageResourceID(R.drawable.pic1);
             historyModel.setMessage(scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(MyAlarmsDBModel.COLUMN_MESSAGE)));

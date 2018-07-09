@@ -22,7 +22,7 @@ public class AlarmHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_history);
-        historyRecyclerView  = findViewById(R.id.alarms_recycler_view);
+        historyRecyclerView = findViewById(R.id.alarms_recycler_view);
 
         historyAdapter = new HistoryAdapter(historyData, this);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -37,6 +37,8 @@ public class AlarmHistory extends AppCompatActivity {
         while (scheduleHistory.moveToNext()) {
             HistoryModel historyModel = new HistoryModel();
             // TODO: change image resource id static to dynamic
+            historyModel.setId(scheduleHistory.getInt
+                    (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_ID)));
             historyModel.setImageResourceID(R.drawable.pic1);
             historyModel.setMessage(scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE)));

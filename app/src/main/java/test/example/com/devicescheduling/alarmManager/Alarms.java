@@ -26,12 +26,13 @@ public class Alarms extends BroadcastReceiver {
         }
 
         Bundle extras = intent.getExtras();
+        int id = 0;
         if (extras != null) {
-            int ID = extras.getInt(Constants.ID);
-            Log.d(Constants.LOGTAG, "Alarm! Id = " + ID);
+            id = extras.getInt(Constants.ID);
         }
 
         Intent i = new Intent(context, ContentShow.class);
+        i.putExtra(Constants.ID, id);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
 

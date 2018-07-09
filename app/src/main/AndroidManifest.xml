@@ -27,7 +27,7 @@
         <activity android:name=".ContentShow" />
 
         <receiver
-            android:name=".BootTimeBroadcastReceiver"
+            android:name=".broadcastReceivers.BootTimeBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

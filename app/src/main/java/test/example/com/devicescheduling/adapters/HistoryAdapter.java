@@ -2,21 +2,25 @@ package test.example.com.devicescheduling.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
+import test.example.com.devicescheduling.Constants;
+import test.example.com.devicescheduling.ContentShow;
 import test.example.com.devicescheduling.R;
 import test.example.com.devicescheduling.models.HistoryModel;
 
 /**
- * Created by Shoukhin on 7/7/2018.
+ * Created by Shoukhin on 7/9/2018.
  */
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemViewHolder> {
@@ -43,6 +47,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         holder.historySetterNameTextView.setText(historyList.get(position).getSetterName());
         holder.historyDateTextView.setText(historyList.get(position).getTimestamp());
 
+        holder.historyRootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ContentShow.class);
+                intent.putExtra(Constants.ID, historyList.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -55,6 +68,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         TextView historyMessageTextView;
         TextView historySetterNameTextView;
         TextView historyDateTextView;
+        LinearLayout historyRootLayout;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -62,6 +76,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
             historyMessageTextView = view.findViewById(R.id.schedule_message_text_view);
             historySetterNameTextView = view.findViewById(R.id.schedule_setter_name_text_view);
             historyDateTextView = view.findViewById(R.id.schedule_time_text_view);
+            historyRootLayout = view.findViewById(R.id.history_root_layout);
         }
     }
 }

@@ -1,4 +1,4 @@
-package test.example.com.devicescheduling;
+package test.example.com.devicescheduling.broadcastReceivers;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

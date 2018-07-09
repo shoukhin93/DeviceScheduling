@@ -5,12 +5,13 @@ package test.example.com.devicescheduling.models;
  */
 
 public class HistoryModel {
+    private int id;
     private int imageResourceID;
     private String message;
     private String setterName;
     private String timestamp;
 
-    public HistoryModel(){
+    public HistoryModel() {
 
     }
 
@@ -44,5 +45,13 @@ public class HistoryModel {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
