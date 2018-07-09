@@ -24,9 +24,7 @@
             android:name=".alarmManager.Alarms"
             android:process=":remote" />
 
-        <activity android:name=".ContentShow">
-
-        </activity>
+        <activity android:name=".ContentShow"></activity>
 
         <receiver
             android:name=".broadcastReceivers.BootTimeBroadcastReceiver"
@@ -45,20 +43,22 @@
         </receiver>
 
         <activity android:name=".AddSchedule">
+
+        </activity>
+        <activity android:name=".SelectImage" />
+        <activity android:name=".SetSchedule" />
+        <activity android:name=".AllowedNumbers" />
+        <activity android:name=".AlarmHistory"></activity>
+        <activity android:name=".MyAlarms"></activity>
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".SelectImage" />
-        <activity android:name=".SetSchedule" />
-        <activity android:name=".AllowedNumbers"></activity>
-        <activity android:name=".AlarmHistory">
-
-        </activity>
-        <activity android:name=".MyAlarms">
-
         </activity>
     </application>
 
