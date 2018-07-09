@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import test.example.com.devicescheduling.resourceManager.ResourceManager;
 import test.example.com.devicescheduling.smsManager.SMSManager;
 
 public class AddSchedule extends AppCompatActivity {
@@ -107,16 +108,20 @@ public class AddSchedule extends AppCompatActivity {
                 soundResourceID = getSoundResourceIDFromName(soundName);
                 mediaPlayer = MediaPlayer.create(AddSchedule.this,
                         soundResourceID);
-                //mediaPlayer.start();
+                mediaPlayer.start();
             }
         });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int mappedImageResourceID = ResourceManager.mapImageResource(imageResourceID);
+                int mappedSoundResourceID = ResourceManager.
+                        mapSoundResource(soundResourceID);
+
                 SMSManager smsManager = new SMSManager();
-                smsManager.setImage(String.valueOf(imageResourceID));
-                smsManager.setSound(String.valueOf(soundResourceID));
+                smsManager.setImage(String.valueOf(mappedImageResourceID));
+                smsManager.setSound(String.valueOf(mappedSoundResourceID));
                 smsManager.setMessage(messageEditText.getText().toString());
                 smsManager.setTimestamp(String.valueOf(mCurrentDate.getTimeInMillis()));
 
