@@ -77,4 +77,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(RAW_QUERY, null);
     }
+
+    public Cursor getDetailInfo(int id, String tableName) {
+        String RAW_QUERY = "select * from " + tableName + " where id=" + id;
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(RAW_QUERY, null);
+    }
 }

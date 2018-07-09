@@ -10,4 +10,5 @@ public class Constants {
     public static final String IMAGE_RESOURSE_CODE = "imageresourcecode";
     public static final String SMS_MANAGER = "smsmanager";
     public static final String NO_NAME = "No Name";
+    public static final String TABLE_NAME = "tablename";
 }
