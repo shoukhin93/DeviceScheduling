@@ -10,6 +10,7 @@ public class HistoryModel {
     private String message;
     private String setterName;
     private String timestamp;
+    private String tableName;
 
     public HistoryModel() {
 
@@ -53,5 +54,13 @@ public class HistoryModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }

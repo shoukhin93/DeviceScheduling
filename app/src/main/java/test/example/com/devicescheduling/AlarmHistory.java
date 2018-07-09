@@ -39,11 +39,16 @@ public class AlarmHistory extends AppCompatActivity {
             // TODO: change image resource id static to dynamic
             historyModel.setId(scheduleHistory.getInt
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_ID)));
+
+            historyModel.setTableName(AlarmHistoryDBModel.TABLE_NAME);
             historyModel.setImageResourceID(R.drawable.pic1);
+
             historyModel.setMessage(scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE)));
+
             historyModel.setSetterName(scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_PHONE)));
+
             historyModel.setTimestamp(scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP)));
 

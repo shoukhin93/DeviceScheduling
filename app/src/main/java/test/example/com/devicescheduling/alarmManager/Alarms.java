@@ -8,8 +8,10 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import test.example.com.devicescheduling.AlarmHistory;
 import test.example.com.devicescheduling.Constants;
 import test.example.com.devicescheduling.ContentShow;
+import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 
 /**
  * Created by Shoukhin on 5/8/2018.
@@ -33,6 +35,7 @@ public class Alarms extends BroadcastReceiver {
 
         Intent i = new Intent(context, ContentShow.class);
         i.putExtra(Constants.ID, id);
+        i.putExtra(Constants.TABLE_NAME, AlarmHistoryDBModel.TABLE_NAME);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
 
