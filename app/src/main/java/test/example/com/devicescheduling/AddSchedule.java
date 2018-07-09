@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -115,6 +116,13 @@ public class AddSchedule extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isMessageValidated(messageEditText.getText().toString())) {
+                    Toast.makeText(getApplicationContext(),
+                            "You can not use ',' character in message!",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 int mappedImageResourceID = ResourceManager.mapImageResource(imageResourceID);
                 int mappedSoundResourceID = ResourceManager.
                         mapSoundResource(soundResourceID);
@@ -187,7 +195,8 @@ public class AddSchedule extends AppCompatActivity {
                 setImageFromResource(imageResourceID);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                imageResourceID = 1;
+                // Default value
+                imageResourceID = R.drawable.pic1;
             }
         }
     }
@@ -203,5 +212,14 @@ public class AddSchedule extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer = null;
         }
+    }
+
+    private boolean isMessageValidated(String message) {
+        // Checking if '>' contains in the message
+        // since that character was considered as separator
+        int index = message.indexOf('>');
+        if (index != -1)
+            return false;
+        return true;
     }
 }

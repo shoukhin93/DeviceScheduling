@@ -52,9 +52,9 @@ public class SetSchedule extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkPermission();
-                smsManager.setRecieverPhoneNumber(phoneNumberEditText.getText().toString());
+                smsManager.setReceiverPhoneNumber(phoneNumberEditText.getText().toString());
                 Log.d(Constants.LOGTAG, smsManager.getFormattedSMS());
-                //smsManager.sendSMS();
+                smsManager.sendSMS();
             }
         });
 

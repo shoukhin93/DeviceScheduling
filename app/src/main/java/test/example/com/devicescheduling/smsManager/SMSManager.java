@@ -1,8 +1,11 @@
 package test.example.com.devicescheduling.smsManager;
 
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import java.io.Serializable;
+
+import test.example.com.devicescheduling.Constants;
 
 /**
  * Created by Shoukhin on 7/5/2018.
@@ -15,7 +18,8 @@ public class SMSManager implements Serializable {
     private String sound;
     private String message;
     private String timestamp;
-    private String recieverPhoneNumber;
+    private String receiverPhoneNumber;
+    public static final String SEPARATOR_CHARACTER = ">";
 
     public SMSManager() {
 
@@ -26,8 +30,9 @@ public class SMSManager implements Serializable {
     }
 
     public String getFormattedSMS() {
-        String formattedSMS = APP_NAME + "," + timestamp + "," + image + "," + sound +
-                "," + message;
+        String formattedSMS = APP_NAME + SEPARATOR_CHARACTER + timestamp +
+                SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
+                SEPARATOR_CHARACTER + message;
 
         return formattedSMS;
     }
@@ -35,7 +40,7 @@ public class SMSManager implements Serializable {
     public boolean isSMSForThisApp() {
         String splitMessages[];
         try {
-            splitMessages = fullMessage.split(",");
+            splitMessages = fullMessage.split(SEPARATOR_CHARACTER);
             if (splitMessages.length == 5 && splitMessages[0].equals(APP_NAME)) {
                 return true;
             }
@@ -46,7 +51,7 @@ public class SMSManager implements Serializable {
     }
 
     public void splitMessage(String fullMessage) {
-        String[] splitMessages = fullMessage.split(",");
+        String[] splitMessages = fullMessage.split(SEPARATOR_CHARACTER);
         timestamp = splitMessages[1];
         image = splitMessages[2];
         sound = splitMessages[3];
@@ -57,7 +62,7 @@ public class SMSManager implements Serializable {
         try {
             String formattedSMS = getFormattedSMS();
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(recieverPhoneNumber, null,
+            smsManager.sendTextMessage(receiverPhoneNumber, null,
                     formattedSMS, null, null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,11 +101,11 @@ public class SMSManager implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getRecieverPhoneNumber() {
-        return recieverPhoneNumber;
+    public String getReceiverPhoneNumber() {
+        return receiverPhoneNumber;
     }
 
-    public void setRecieverPhoneNumber(String recieverPhoneNumber) {
-        this.recieverPhoneNumber = recieverPhoneNumber;
+    public void setReceiverPhoneNumber(String receiverPhoneNumber) {
+        this.receiverPhoneNumber = receiverPhoneNumber;
     }
 }

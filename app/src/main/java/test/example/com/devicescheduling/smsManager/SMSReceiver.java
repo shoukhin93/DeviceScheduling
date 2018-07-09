@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
+import test.example.com.devicescheduling.Constants;
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManager;
