@@ -4,7 +4,7 @@ package test.example.com.devicescheduling.database.model;
  * Created by Shoukhin on 7/5/2018.
  */
 
-public class AllowedPhones {
+public class AllowedPhonesDBModel {
     public static final String TABLE_NAME = "allowedphones";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PHONE = "phone";
@@ -22,7 +22,7 @@ public class AllowedPhones {
     private String phone;
     private String timestamp;
 
-    public AllowedPhones() {
+    public AllowedPhonesDBModel() {
 
     }
 

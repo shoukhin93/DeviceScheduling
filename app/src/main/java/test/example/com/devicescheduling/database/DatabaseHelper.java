@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import test.example.com.devicescheduling.database.model.AlarmHistory;
-import test.example.com.devicescheduling.database.model.AllowedPhones;
-import test.example.com.devicescheduling.database.model.MyAlarms;
+import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
+import test.example.com.devicescheduling.database.model.AllowedPhonesDBModel;
+import test.example.com.devicescheduling.database.model.MyAlarmsDBModel;
 
 /**
  * Created by Shoukhin on 7/4/2018.
@@ -25,63 +25,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(MyAlarms.CREATE_TABLE);
-        db.execSQL(AlarmHistory.CREATE_TABLE);
-        db.execSQL(AllowedPhones.CREATE_TABLE);
+        db.execSQL(MyAlarmsDBModel.CREATE_TABLE);
+        db.execSQL(AlarmHistoryDBModel.CREATE_TABLE);
+        db.execSQL(AllowedPhonesDBModel.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + MyAlarms.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AlarmHistory.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AllowedPhones.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MyAlarmsDBModel.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AlarmHistoryDBModel.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AllowedPhonesDBModel.TABLE_NAME);
 
         // Create tables again
         onCreate(db);
 
     }
 
-    public long insertMyAlarm(MyAlarms myAlarms) {
+    public long insertMyAlarm(MyAlarmsDBModel myAlarmsDBModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(MyAlarms.COLUMN_PHONE, myAlarms.getPhone());
-        values.put(MyAlarms.COLUMN_MESSAGE, myAlarms.getMessage());
-        values.put(MyAlarms.COLUMN_IMAGE, myAlarms.getImage());
-        values.put(MyAlarms.COLUMN_SOUND, myAlarms.getSound());
+        values.put(MyAlarmsDBModel.COLUMN_PHONE, myAlarmsDBModel.getPhone());
+        values.put(MyAlarmsDBModel.COLUMN_MESSAGE, myAlarmsDBModel.getMessage());
+        values.put(MyAlarmsDBModel.COLUMN_IMAGE, myAlarmsDBModel.getImage());
+        values.put(MyAlarmsDBModel.COLUMN_SOUND, myAlarmsDBModel.getSound());
 
-        long id = db.insert(MyAlarms.TABLE_NAME, null, values);
+        long id = db.insert(MyAlarmsDBModel.TABLE_NAME, null, values);
         db.close();
         return id;
     }
 
-    public long insertAlarmHistory(AlarmHistory alarmHistory) {
+    public long insertAlarmHistory(AlarmHistoryDBModel alarmHistoryDBModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(AlarmHistory.COLUMN_PHONE, alarmHistory.getPhone());
-        values.put(AlarmHistory.COLUMN_MESSAGE, alarmHistory.getMessage());
-        values.put(AlarmHistory.COLUMN_IMAGE, alarmHistory.getImage());
-        values.put(AlarmHistory.COLUMN_SOUND, alarmHistory.getSound());
+        values.put(AlarmHistoryDBModel.COLUMN_PHONE, alarmHistoryDBModel.getPhone());
+        values.put(AlarmHistoryDBModel.COLUMN_MESSAGE, alarmHistoryDBModel.getMessage());
+        values.put(AlarmHistoryDBModel.COLUMN_IMAGE, alarmHistoryDBModel.getImage());
+        values.put(AlarmHistoryDBModel.COLUMN_SOUND, alarmHistoryDBModel.getSound());
 
-        long id = db.insert(AlarmHistory.TABLE_NAME, null, values);
+        long id = db.insert(AlarmHistoryDBModel.TABLE_NAME, null, values);
         db.close();
         return id;
     }
 
-    public long insertAllowedPhones(AllowedPhones allowedPhones) {
+    public long insertAllowedPhones(AllowedPhonesDBModel allowedPhonesDBModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(AlarmHistory.COLUMN_PHONE, allowedPhones.getPhone());
+        values.put(AlarmHistoryDBModel.COLUMN_PHONE, allowedPhonesDBModel.getPhone());
 
-        long id = db.insert(AllowedPhones.TABLE_NAME, null, values);
+        long id = db.insert(AllowedPhonesDBModel.TABLE_NAME, null, values);
         db.close();
         return id;
     }
 
     public Cursor getAllScheduleHistory() {
-        String RAW_QUERY = "select * from " + AlarmHistory.TABLE_NAME;
+        String RAW_QUERY = "select * from " + AlarmHistoryDBModel.TABLE_NAME;
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(RAW_QUERY, null);
     }

@@ -1,12 +1,11 @@
 package test.example.com.devicescheduling.database.model;
 
 /**
- * Created by Shoukhin on 7/5/2018.
+ * Created by Shoukhin on 7/4/2018.
  */
 
-public class AlarmHistory {
-
-    public static final String TABLE_NAME = "alarmhistory";
+public class MyAlarmsDBModel {
+    public static final String TABLE_NAME = "myalarms";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PHONE = "phone";
     public static final String COLUMN_MESSAGE = "message";
@@ -32,7 +31,7 @@ public class AlarmHistory {
     private String sound;
     private String timestamp;
 
-    public AlarmHistory() {
+    public MyAlarmsDBModel() {
 
     }
 

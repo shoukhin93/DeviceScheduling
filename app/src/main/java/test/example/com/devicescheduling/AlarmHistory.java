@@ -1,5 +1,6 @@
 package test.example.com.devicescheduling;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 import test.example.com.devicescheduling.adapters.HistoryAdapter;
+import test.example.com.devicescheduling.database.DatabaseHelper;
+import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 import test.example.com.devicescheduling.models.HistoryModel;
 
 public class AlarmHistory extends AppCompatActivity {
@@ -19,6 +22,7 @@ public class AlarmHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_history);
+        historyRecyclerView  = findViewById(R.id.alarms_recycler_view);
 
         historyAdapter = new HistoryAdapter(historyData, this);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -28,6 +32,21 @@ public class AlarmHistory extends AppCompatActivity {
     }
 
     private void getHistoryData() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        Cursor scheduleHistory = databaseHelper.getAllScheduleHistory();
+        while (scheduleHistory.moveToNext()) {
+            HistoryModel historyModel = new HistoryModel();
+            // TODO: change image resource id static to dynamic
+            historyModel.setImageResourceID(R.drawable.pic1);
+            historyModel.setMessage(scheduleHistory.getString
+                    (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE)));
+            historyModel.setSetterName(scheduleHistory.getString
+                    (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_PHONE)));
+            historyModel.setTimestamp(scheduleHistory.getString
+                    (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP)));
 
+            historyData.add(historyModel);
+        }
+        historyAdapter.notifyDataSetChanged();
     }
 }

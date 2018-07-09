@@ -3,15 +3,11 @@ package test.example.com.devicescheduling.smsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.util.Log;
 
-import test.example.com.devicescheduling.Constants;
-import test.example.com.devicescheduling.alarmManager.ManagerOfAlarms;
 import test.example.com.devicescheduling.database.DatabaseHelper;
-import test.example.com.devicescheduling.database.model.AlarmHistory;
+import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManager;
 
 public class SMSReceiver extends BroadcastReceiver {
@@ -38,15 +34,15 @@ public class SMSReceiver extends BroadcastReceiver {
                         if (smsManager.isSMSForThisApp()) {
                             smsManager.splitMessage(message);
 
-                            AlarmHistory alarmHistory = new AlarmHistory();
-                            alarmHistory.setPhone(SMSSenderNumber);
-                            alarmHistory.setImage(smsManager.getImage());
-                            alarmHistory.setSound(smsManager.getSound());
-                            alarmHistory.setMessage(smsManager.getMessage());
-                            alarmHistory.setTimestamp(smsManager.getTimestamp());
+                            AlarmHistoryDBModel alarmHistoryDBModel = new AlarmHistoryDBModel();
+                            alarmHistoryDBModel.setPhone(SMSSenderNumber);
+                            alarmHistoryDBModel.setImage(smsManager.getImage());
+                            alarmHistoryDBModel.setSound(smsManager.getSound());
+                            alarmHistoryDBModel.setMessage(smsManager.getMessage());
+                            alarmHistoryDBModel.setTimestamp(smsManager.getTimestamp());
 
                             DatabaseHelper dbHelper = new DatabaseHelper(context);
-                            long id = dbHelper.insertAlarmHistory(alarmHistory);
+                            long id = dbHelper.insertAlarmHistory(alarmHistoryDBModel);
 
                             //ManagerOfAlarms alarms = new ManagerOfAlarms(context);
                             //alarms.setAlarm("2018-07-06 13:49:18.429", (int) id);
