@@ -36,7 +36,7 @@
             android:layout_gravity="center|right"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_perm_contact_calendar_white_24dp"
+            android:src="@drawable/contact_icon"
             app:fabSize="mini" />
 
     </FrameLayout>
