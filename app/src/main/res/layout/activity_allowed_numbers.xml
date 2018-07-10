@@ -5,42 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".AllowedNumbers">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/phone_number_edit_text"
-            android:layout_width="wrap_content"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_gravity="top"
+            android:layout_marginBottom="45dp"
             android:hint="Enter Number"
             android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:hint="Enter Name (Optional)" />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/pick_contact"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center|right"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_perm_contact_calendar_white_24dp"
-            app:fabSize="mini"/>
+            app:fabSize="mini" />
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <EditText
-        android:id="@+id/name_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Name" />
+
     <Button
-        android:layout_gravity="center"
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:text="Save"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Allowed Numbers"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Tap to edit, Long press to delete"
+        android:textSize="14sp"
+        android:textStyle="italic" />
 
     <ListView
         android:id="@+id/allowed_numbers_list_view"

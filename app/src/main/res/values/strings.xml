@@ -20,6 +20,7 @@
     <string name="title_activity_select_image">Select Image</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_my_schedules">My Schedules</string>
+    <string name="title_activity_allowed_numbers">Allowed Numbers</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

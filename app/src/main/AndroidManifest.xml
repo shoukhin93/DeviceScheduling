@@ -68,7 +68,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AddSchedule" />
         </activity>
-        <activity android:name=".AllowedNumbers" />
+        <activity
+            android:name=".AllowedNumbers"
+            android:label="@string/title_activity_allowed_numbers">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
         <activity
             android:name=".AlarmHistory"
             android:label="@string/title_activity_history">
