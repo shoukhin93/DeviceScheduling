@@ -65,7 +65,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AddSchedule" />
         </activity>
-        <activity android:name=".SetSchedule" />
+        <activity
+            android:name=".SetSchedule"
+            android:label="@string/title_activity_add_schedule">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AddSchedule" />
+        </activity>
         <activity android:name=".AllowedNumbers" />
         <activity android:name=".AlarmHistory"></activity>
         <activity android:name=".MyAlarms"></activity>

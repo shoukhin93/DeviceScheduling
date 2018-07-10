@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context="test.example.com.devicescheduling.SetSchedule">
 
     <LinearLayout
@@ -16,24 +17,30 @@
         <EditText
             android:id="@+id/phone_number_edit_text"
             android:layout_width="0dp"
-            android:layout_weight="7"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="7"
             android:hint="Enter phone Number"
             android:inputType="phone" />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/pick_contact"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:clickable="true"
             android:src="@drawable/ic_perm_contact_calendar_white_24dp"
-            app:fabSize="mini"/>
+            app:fabSize="mini" />
     </LinearLayout>
 
     <Button
         android:id="@+id/send_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set" />
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:text="Set"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 </LinearLayout>
