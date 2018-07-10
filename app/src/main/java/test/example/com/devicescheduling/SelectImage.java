@@ -6,18 +6,19 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import test.example.com.devicescheduling.adapters.ImageAdapter;
+import test.example.com.devicescheduling.resourceManager.ResourceManager;
 
 public class SelectImage extends AppCompatActivity {
 
-    private ArrayList<Integer> imageData = new ArrayList<>();
-
+    private ArrayList<Integer> imageData = new ArrayList<>(Arrays.asList(
+            ResourceManager.imageResources));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_image);
-        setImageResources();
 
         RecyclerView recyclerView = findViewById(R.id.image_recycler_view);
         ImageAdapter imageAdapter = new ImageAdapter(imageData, this);
@@ -26,8 +27,4 @@ public class SelectImage extends AppCompatActivity {
         recyclerView.setAdapter(imageAdapter);
     }
 
-    private void setImageResources() {
-        imageData.add(R.drawable.pic1);
-        imageData.add(R.drawable.pic2);
-    }
 }

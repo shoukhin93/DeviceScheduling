@@ -9,45 +9,42 @@ import test.example.com.devicescheduling.R;
  */
 
 public class ResourceManager {
+    public static final Integer[] imageResources = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3,
+            R.drawable.pic4, R.drawable.pic5
+    };
+    public static final int[] soundResources = {R.raw.crazy_smile
+    };
 
     public static int mapImageResource(int imageResourceID) {
-        switch (imageResourceID) {
-            case R.drawable.pic1:
-                return 1;
-            case R.drawable.pic2:
-                return 2;
-            default:
-                return 1;
+        for (int i = 0; i < imageResources.length; i++) {
+            if (imageResourceID == imageResources[i])
+                return i;
         }
+        return 0;
     }
 
     public static int getMappedImageResourceID(int imageResourceID) {
-        switch (imageResourceID) {
-            case 1:
-                return R.drawable.pic1;
-            case 2:
-                return R.drawable.pic2;
-            default:
-                return R.drawable.pic1;
+        for (int i = 0; i < imageResources.length; i++) {
+            if (imageResourceID == imageResources[i])
+                return imageResources[i];
         }
+        return imageResources[0];
     }
 
     public static int mapSoundResource(int soundResourceID) {
-        switch (soundResourceID) {
-            case R.raw.crazy_smile:
-                return 1;
-            default:
-                return 1;
+        for (int i = 0; i < soundResources.length; i++) {
+            if (soundResourceID == soundResources[i])
+                return i;
         }
+        return 0;
     }
 
     public static int getMappedSoundResourceID(int soundResourceID) {
-        switch (soundResourceID) {
-            case 1:
-                return R.raw.crazy_smile;
-            default:
-                return R.raw.crazy_smile;
+        for (int i = 0; i < soundResources.length; i++) {
+            if (soundResourceID == soundResources[i])
+                return soundResources[i];
         }
+        return soundResources[0];
     }
 
     public static int mapPhoneStatusFromName(String status) {
