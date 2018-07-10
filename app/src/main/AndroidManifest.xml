@@ -77,7 +77,13 @@
                 android:value=".Home" />
 
         </activity>
-        <activity android:name=".MyAlarms"></activity>
+        <activity
+            android:name=".MyAlarms"
+            android:label="@string/title_activity_my_schedules">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"

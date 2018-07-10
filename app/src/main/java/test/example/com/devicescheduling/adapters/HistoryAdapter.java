@@ -26,10 +26,15 @@ import test.example.com.devicescheduling.models.HistoryModel;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemViewHolder> {
     private List<HistoryModel> historyList;
     private Context context;
+    private boolean isDefinedAsMySchedule = false;
 
     public HistoryAdapter(List<HistoryModel> historyList, Context context) {
         this.historyList = historyList;
         this.context = context;
+    }
+
+    public void definedAsMySchedule() {
+        isDefinedAsMySchedule = true;
     }
 
     @NonNull
@@ -46,6 +51,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         holder.historyMessageTextView.setText(historyList.get(position).getMessage());
         holder.historySetterNameTextView.setText(historyList.get(position).getSetterName());
         holder.historyDateTextView.setText(historyList.get(position).getTimestamp());
+        if (isDefinedAsMySchedule) {
+            holder.receiverTextView.setText("To: ");
+        }
 
         holder.historyRootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +76,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView historyImageView;
         TextView historyMessageTextView;
+        TextView receiverTextView;
         TextView historySetterNameTextView;
         TextView historyDateTextView;
         LinearLayout historyRootLayout;
@@ -78,6 +87,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
             historyMessageTextView = view.findViewById(R.id.schedule_message_text_view);
             historySetterNameTextView = view.findViewById(R.id.schedule_setter_name_text_view);
             historyDateTextView = view.findViewById(R.id.schedule_time_text_view);
+            receiverTextView = view.findViewById(R.id.receiver_text_view);
             historyRootLayout = view.findViewById(R.id.history_root_layout);
         }
     }

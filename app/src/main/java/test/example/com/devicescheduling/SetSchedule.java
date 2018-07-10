@@ -18,7 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.util.Calendar;
+
+import test.example.com.devicescheduling.database.DatabaseHelper;
+import test.example.com.devicescheduling.database.model.MyAlarmsDBModel;
 import test.example.com.devicescheduling.smsManager.SMSManager;
 
 public class SetSchedule extends AppCompatActivity {
@@ -59,23 +64,26 @@ public class SetSchedule extends AppCompatActivity {
                         .Builder(SetSchedule.this);
                 alertDialogBuilder.setMessage("Are you sure want" +
                         "to set schedule? Standard SMS charge may be applicable");
-                        alertDialogBuilder.setPositiveButton("yes",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface arg0, int arg1) {
-                                        smsManager.setReceiverPhoneNumber
-                                                (phoneNumberEditText.getText().toString());
-                                        smsManager.sendSMS();
-                                    }
-                                });
+                alertDialogBuilder.setPositiveButton("yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                smsManager.setReceiverPhoneNumber(phoneNumberEditText.
+                                        getText().toString());
+                                smsManager.sendSMS();
+                                saveInfoToDatabase();
+                                Toast.makeText(SetSchedule.this, "Schedule is set",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                alertDialogBuilder.setNegativeButton("No",new
+                alertDialogBuilder.setNegativeButton("No", new
                         DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
@@ -90,6 +98,18 @@ public class SetSchedule extends AppCompatActivity {
                 startActivityForResult(intent, PICK_CONTACT);
             }
         });
+    }
+
+    private void saveInfoToDatabase() {
+        MyAlarmsDBModel dbModel = new MyAlarmsDBModel();
+        dbModel.setMessage(smsManager.getMessage());
+        dbModel.setPhone(smsManager.getReceiverPhoneNumber());
+        dbModel.setImage(smsManager.getImage());
+        dbModel.setSound(smsManager.getSound());
+        dbModel.setTimestamp(smsManager.getTimestamp());
+        Log.d(Constants.LOGTAG, smsManager.getTimestamp());
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper.insertMyAlarm(dbModel);
     }
 
     private void checkPermission() {
