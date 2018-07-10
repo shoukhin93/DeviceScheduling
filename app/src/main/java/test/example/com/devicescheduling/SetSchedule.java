@@ -39,16 +39,6 @@ public class SetSchedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_schedule);
 
-        if (ContextCompat.checkSelfPermission(SetSchedule.this,
-                Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // If you do not have permission, request it
-            ActivityCompat.requestPermissions(SetSchedule.this,
-                    new String[]{Manifest.permission.READ_CONTACTS},
-                    10);
-        }
-
         phoneNumberEditText = findViewById(R.id.phone_number_edit_text);
         pickContact = findViewById(R.id.pick_contact);
         sendButton = findViewById(R.id.send_button);
@@ -93,6 +83,7 @@ public class SetSchedule extends AppCompatActivity {
         pickContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkPickContactPermission();
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
                 startActivityForResult(intent, PICK_CONTACT);
@@ -121,6 +112,18 @@ public class SetSchedule extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.SEND_SMS},
                     REQUEST_SMS_PERMISSION);
+        }
+    }
+
+    private void checkPickContactPermission() {
+        if (ContextCompat.checkSelfPermission(SetSchedule.this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // If you do not have permission, request it
+            ActivityCompat.requestPermissions(SetSchedule.this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    10);
         }
     }
 

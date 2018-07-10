@@ -1,7 +1,9 @@
 package test.example.com.devicescheduling;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,8 @@ import android.widget.Button;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button setScheduleButton;
+    private final int PICK_CONTACT = 3;
+    int REQUEST_SMS_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class Home extends AppCompatActivity
                 startActivity(new Intent(Home.this, AddSchedule.class));
             }
         });
+
+        requestPermissions();
     }
 
     @Override
@@ -72,5 +78,12 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.SEND_SMS,
+                        Manifest.permission.READ_CONTACTS},
+                REQUEST_SMS_PERMISSION);
     }
 }

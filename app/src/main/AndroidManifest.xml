@@ -32,7 +32,11 @@
 
         <activity
             android:name=".ContentShow"
-            android:label="@string/title_activity_content_show" />
+            android:label="@string/title_activity_content_show">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="test.example.com.devicescheduling.Home" />
+        </activity>
 
         <activity
             android:name=".AddSchedule"

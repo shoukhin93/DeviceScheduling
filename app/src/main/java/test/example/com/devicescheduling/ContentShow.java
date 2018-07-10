@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +16,12 @@ import android.widget.TextView;
 
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
+import test.example.com.devicescheduling.resourceManager.ResourceManager;
 
 public class ContentShow extends AppCompatActivity {
     ImageView imageView;
     TextView messageTextView;
+    MediaPlayer mediaPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,19 @@ public class ContentShow extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         Cursor detailInfo = databaseHelper.getDetailInfo(id, tableName);
         detailInfo.moveToFirst();
-        // TODO: change image resource id
-        int imageResourceID = R.drawable.pic1;
+
+        String tempImageResourceID = detailInfo.getString
+                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
+        int mappedImageResourceID = Integer.parseInt(tempImageResourceID);
+        int imageResourceID = ResourceManager.getMappedImageResourceID(mappedImageResourceID);
+
+        String tempSoundResourceID = detailInfo.getString
+                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_SOUND));
+        int mappedSoundResourceID = Integer.parseInt(tempSoundResourceID);
+        int soundResourceID = ResourceManager.getMappedImageResourceID(mappedSoundResourceID);
+        mediaPlayer = MediaPlayer.create(this, soundResourceID);
+        mediaPlayer.start();
+
         String message = detailInfo.getString
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
         imageView.setImageResource(imageResourceID);
@@ -69,6 +83,15 @@ public class ContentShow extends AppCompatActivity {
         } else {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.setRingerMode(status);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer = null;
         }
     }
 }
