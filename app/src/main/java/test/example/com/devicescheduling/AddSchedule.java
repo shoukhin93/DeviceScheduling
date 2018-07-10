@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,11 +27,11 @@ import test.example.com.devicescheduling.resourceManager.ResourceManager;
 import test.example.com.devicescheduling.smsManager.SMSManager;
 
 public class AddSchedule extends AppCompatActivity {
-    Button dateChangeButton;
-    Button timeChangeButton;
-    Button changeImageButton;
-    Button playSoundButton;
-    Button saveButton;
+    FloatingActionButton dateChangeButton;
+    FloatingActionButton timeChangeButton;
+    FloatingActionButton changeImageButton;
+    FloatingActionButton playSoundButton;
+    FloatingActionButton saveButton;
     ImageView selectedImageView;
     TextView timeTextView;
     TextView dateTextView;
