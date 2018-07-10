@@ -11,8 +11,6 @@ import test.example.com.devicescheduling.adapters.ImageAdapter;
 
 public class SelectImage extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private ImageAdapter imageAdapter;
     private ArrayList<Integer> imageData = new ArrayList<>();
 
     @Override
@@ -21,8 +19,8 @@ public class SelectImage extends AppCompatActivity {
         setContentView(R.layout.activity_select_image);
         setImageResources();
 
-        recyclerView = findViewById(R.id.image_recycler_view);
-        imageAdapter = new ImageAdapter(imageData, this);
+        RecyclerView recyclerView = findViewById(R.id.image_recycler_view);
+        ImageAdapter imageAdapter = new ImageAdapter(imageData, this);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(imageAdapter);
@@ -30,6 +28,6 @@ public class SelectImage extends AppCompatActivity {
 
     private void setImageResources() {
         imageData.add(R.drawable.pic1);
-        imageData.add(R.drawable.pic1);
+        imageData.add(R.drawable.pic2);
     }
 }

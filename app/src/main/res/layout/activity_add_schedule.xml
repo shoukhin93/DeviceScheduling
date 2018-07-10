@@ -82,31 +82,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <ImageView
-            android:id="@+id/selected_image_view"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="3"
-            android:scaleType="fitXY"
-            android:src="@drawable/pic1" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/image_change_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/change_image_icon"
-            app:fabSize="mini" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,6 +115,34 @@
             android:focusable="true"
             android:src="@drawable/play_sound_icon"
             app:fabSize="mini" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/selected_image_view"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="3"
+            android:paddingRight="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/pic1" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/image_change_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/change_image_icon"
+            app:fabSize="mini" />
+
     </LinearLayout>
 
     <LinearLayout

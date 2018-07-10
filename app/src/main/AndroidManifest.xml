@@ -58,7 +58,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectImage" />
+        <activity
+            android:name=".SelectImage"
+            android:label="@string/title_activity_select_image">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AddSchedule" />
+        </activity>
         <activity android:name=".SetSchedule" />
         <activity android:name=".AllowedNumbers" />
         <activity android:name=".AlarmHistory"></activity>
