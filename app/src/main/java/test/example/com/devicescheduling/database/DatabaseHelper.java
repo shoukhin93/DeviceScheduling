@@ -60,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(AlarmHistoryDBModel.COLUMN_MESSAGE, alarmHistoryDBModel.getMessage());
         values.put(AlarmHistoryDBModel.COLUMN_IMAGE, alarmHistoryDBModel.getImage());
         values.put(AlarmHistoryDBModel.COLUMN_SOUND, alarmHistoryDBModel.getSound());
+        values.put(AlarmHistoryDBModel.COLUMN_TIMESTAMP, alarmHistoryDBModel.getTimestamp());
 
         long id = db.insert(AlarmHistoryDBModel.TABLE_NAME, null, values);
         db.close();

@@ -38,20 +38,6 @@ public class SMSManager implements Serializable {
         this.fullMessage = decryptedMessage;
     }
 
-    private String getFormattedSMS() {
-        String formattedSMS = APP_NAME + SEPARATOR_CHARACTER + timestamp +
-                SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
-                SEPARATOR_CHARACTER + phoneStatus + SEPARATOR_CHARACTER + message;
-        String encryptedMessage = null;
-        try {
-            encryptedMessage = AES.encrypt(formattedSMS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return encryptedMessage;
-    }
-
     public boolean isSMSForThisApp() {
         String splitMessages[];
         try {
@@ -66,7 +52,7 @@ public class SMSManager implements Serializable {
         return false;
     }
 
-    public void splitMessage(String fullMessage) {
+    public void splitMessage() {
         String[] splitMessages = fullMessage.split(SEPARATOR_CHARACTER);
         timestamp = splitMessages[1];
         image = splitMessages[2];
@@ -75,6 +61,19 @@ public class SMSManager implements Serializable {
         message = splitMessages[5];
     }
 
+    private String getFormattedSMS() {
+        String formattedSMS = APP_NAME + SEPARATOR_CHARACTER + timestamp +
+                SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
+                SEPARATOR_CHARACTER + phoneStatus + SEPARATOR_CHARACTER + message;
+        String encryptedMessage = null;
+        try {
+            encryptedMessage = AES.encrypt(formattedSMS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return encryptedMessage;
+    }
     public void sendSMS() {
         try {
             String formattedSMS = getFormattedSMS();

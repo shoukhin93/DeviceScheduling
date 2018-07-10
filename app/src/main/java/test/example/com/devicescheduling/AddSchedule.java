@@ -8,9 +8,7 @@ import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +29,7 @@ public class AddSchedule extends AppCompatActivity {
     FloatingActionButton timeChangeButton;
     FloatingActionButton changeImageButton;
     FloatingActionButton playSoundButton;
-    FloatingActionButton saveButton;
+    FloatingActionButton nextButton;
     ImageView selectedImageView;
     TextView timeTextView;
     TextView dateTextView;
@@ -115,7 +113,7 @@ public class AddSchedule extends AppCompatActivity {
             }
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isMessageValidated(messageEditText.getText().toString())) {
@@ -157,7 +155,7 @@ public class AddSchedule extends AppCompatActivity {
         timeChangeButton = findViewById(R.id.time_change_button);
         changeImageButton = findViewById(R.id.image_change_button);
         playSoundButton = findViewById(R.id.sound_play_button);
-        saveButton = findViewById(R.id.save_button);
+        nextButton = findViewById(R.id.save_button);
         dateTextView = findViewById(R.id.date_text_view);
         timeTextView = findViewById(R.id.time_text_view);
         selectedImageView = findViewById(R.id.selected_image_view);

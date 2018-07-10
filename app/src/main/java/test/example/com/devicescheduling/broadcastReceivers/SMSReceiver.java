@@ -36,7 +36,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         SMSManager smsManager = new SMSManager(message);
 
                         if (smsManager.isSMSForThisApp()) {
-                            smsManager.splitMessage(message);
+                            smsManager.splitMessage();
 
                             AlarmHistoryDBModel alarmHistoryDBModel = new AlarmHistoryDBModel();
                             alarmHistoryDBModel.setPhone(SMSSenderNumber);

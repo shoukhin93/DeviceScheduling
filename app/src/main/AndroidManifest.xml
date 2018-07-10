@@ -52,11 +52,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Home" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SelectImage"
@@ -73,13 +69,24 @@
                 android:value=".AddSchedule" />
         </activity>
         <activity android:name=".AllowedNumbers" />
-        <activity android:name=".AlarmHistory"></activity>
+        <activity
+            android:name=".AlarmHistory"
+            android:label="@string/title_activity_history">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+
+        </activity>
         <activity android:name=".MyAlarms"></activity>
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
