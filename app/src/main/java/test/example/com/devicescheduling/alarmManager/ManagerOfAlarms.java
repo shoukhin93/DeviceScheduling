@@ -4,14 +4,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import test.example.com.devicescheduling.Constants;
+import test.example.com.devicescheduling.database.DatabaseHelper;
+import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 
 /**
  * Created by Shoukhin on 7/5/2018.
@@ -39,7 +40,7 @@ public class ManagerOfAlarms {
         }
     }
 
-    private Date stringToDateTime(String time) {
+   /* private Date stringToDateTime(String time) {
         Date convertedTime = null;
         try {
             convertedTime = dateFormat.parse(time);
@@ -47,5 +48,23 @@ public class ManagerOfAlarms {
             e.printStackTrace();
         }
         return convertedTime;
+    }*/
+
+    public void setBootTimeAlarms() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        Cursor schedules = databaseHelper.getAllScheduleHistory();
+
+        for (schedules.moveToFirst(); schedules.isAfterLast(); schedules.moveToNext()) {
+
+            int id = schedules.getInt
+                    (schedules.getColumnIndex(AlarmHistoryDBModel.COLUMN_ID));
+            String timeStamp = schedules.getString
+                    (schedules.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP));
+            Calendar currentTime = Calendar.getInstance();
+
+            if (currentTime.getTimeInMillis() >= Long.parseLong(timeStamp)) {
+                setAlarm(timeStamp, id);
+            }
+        }
     }
 }

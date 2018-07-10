@@ -63,7 +63,6 @@ public class SetSchedule extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface arg0, int arg1) {
-                                        Log.d(Constants.LOGTAG, smsManager.getFormattedSMS());
                                         smsManager.setReceiverPhoneNumber
                                                 (phoneNumberEditText.getText().toString());
                                         smsManager.sendSMS();

@@ -36,10 +36,9 @@ public class SMSManager implements Serializable {
             e.printStackTrace();
         }
         this.fullMessage = decryptedMessage;
-        Log.d(Constants.LOGTAG, "After decryption : " + this.fullMessage);
     }
 
-    public String getFormattedSMS() {
+    private String getFormattedSMS() {
         String formattedSMS = APP_NAME + SEPARATOR_CHARACTER + timestamp +
                 SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
                 SEPARATOR_CHARACTER + phoneStatus + SEPARATOR_CHARACTER + message;
