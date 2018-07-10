@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.Serializable;
 
 import test.example.com.devicescheduling.Constants;
+import test.example.com.devicescheduling.encryption.AES;
 
 /**
  * Created by Shoukhin on 7/5/2018.
@@ -28,15 +29,28 @@ public class SMSManager implements Serializable {
     }
 
     public SMSManager(String fullMessage) {
-        this.fullMessage = fullMessage;
+        String decryptedMessage = null;
+        try {
+            decryptedMessage = AES.decrypt(fullMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.fullMessage = decryptedMessage;
+        Log.d(Constants.LOGTAG, "After decryption : " + this.fullMessage);
     }
 
     public String getFormattedSMS() {
         String formattedSMS = APP_NAME + SEPARATOR_CHARACTER + timestamp +
                 SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
                 SEPARATOR_CHARACTER + phoneStatus + SEPARATOR_CHARACTER + message;
+        String encryptedMessage = null;
+        try {
+            encryptedMessage = AES.encrypt(formattedSMS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return formattedSMS;
+        return encryptedMessage;
     }
 
     public boolean isSMSForThisApp() {

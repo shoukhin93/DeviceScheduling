@@ -30,17 +30,15 @@ public class ContentShow extends AppCompatActivity {
 
         imageView = findViewById(R.id.content_image_view);
         messageTextView = findViewById(R.id.message_text_view);
-        //Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 
-        //if (bundle == null)
-        //  return;
+        if (bundle == null)
+            return;
 
-        //int id = bundle.getInt(Constants.ID);
-        //String tableName = bundle.getString(Constants.TABLE_NAME);
-        //int phoneStatus = bundle.getString(Constants.PHONE_STATUS);
-        int phoneStatus = AudioManager.RINGER_MODE_SILENT;
-        int id = 2;
-        String tableName = AlarmHistoryDBModel.TABLE_NAME;
+        int id = bundle.getInt(Constants.ID);
+        int phoneStatus = bundle.getInt(Constants.PHONE_STATUS);
+        String tableName = bundle.getString(Constants.TABLE_NAME);
+
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         Cursor detailInfo = databaseHelper.getDetailInfo(id, tableName);
         detailInfo.moveToFirst();

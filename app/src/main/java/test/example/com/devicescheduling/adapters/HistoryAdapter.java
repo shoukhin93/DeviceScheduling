@@ -53,6 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
                 Intent intent = new Intent(context, ContentShow.class);
                 intent.putExtra(Constants.ID, historyList.get(position).getId());
                 intent.putExtra(Constants.TABLE_NAME, historyList.get(position).getTableName());
+                intent.putExtra(Constants.PHONE_STATUS, -1);
                 context.startActivity(intent);
             }
         });
