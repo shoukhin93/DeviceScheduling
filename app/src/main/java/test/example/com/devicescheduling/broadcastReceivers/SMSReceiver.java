@@ -35,7 +35,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         String message = currentMessage.getDisplayMessageBody();
                         SMSManager smsManager = new SMSManager(message);
 
-                        if (smsManager.isSMSForThisApp()) {
+                        if (smsManager.isFieldsValidated()) {
                             smsManager.splitMessage();
 
                             AlarmHistoryDBModel alarmHistoryDBModel = new AlarmHistoryDBModel();

@@ -47,23 +47,25 @@ public class ContentShow extends AppCompatActivity {
         detailInfo.moveToFirst();
 
         String tempImageResourceID = detailInfo.getString
-                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
-        int mappedImageResourceID = Integer.parseInt(tempImageResourceID);
-        int imageResourceID = ResourceManager.getMappedImageResourceID(mappedImageResourceID);
+                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_IMAGE));
+        int imageResourceID = getImageResourceId(tempImageResourceID);
 
         String tempSoundResourceID = detailInfo.getString
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_SOUND));
-        int mappedSoundResourceID = Integer.parseInt(tempSoundResourceID);
-        int soundResourceID = ResourceManager.getMappedImageResourceID(mappedSoundResourceID);
-        mediaPlayer = MediaPlayer.create(this, soundResourceID);
-        mediaPlayer.start();
+        int soundResourceID = getSoundResourceId(tempSoundResourceID);
 
         String message = detailInfo.getString
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
+
         imageView.setImageResource(imageResourceID);
         messageTextView.setText(message);
-
         changePhoneStatus(phoneStatus);
+        playSound(soundResourceID);
+    }
+
+    private void playSound(int soundResourceID) {
+        mediaPlayer = MediaPlayer.create(this, soundResourceID);
+        mediaPlayer.start();
     }
 
     private void changePhoneStatus(int status) {
@@ -84,6 +86,19 @@ public class ContentShow extends AppCompatActivity {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.setRingerMode(status);
         }
+    }
+
+    private int getImageResourceId(String imageID) {
+        int mappedImageResourceID = Integer.parseInt(imageID);
+        int imageResourceID = ResourceManager.getMappedImageResourceID(mappedImageResourceID);
+        return imageResourceID;
+    }
+
+    private int getSoundResourceId(String soundID) {
+        int mappedSoundResourceID = Integer.parseInt(soundID);
+        int soundResourceID = ResourceManager.getMappedSoundResourceID(mappedSoundResourceID);
+
+        return soundResourceID;
     }
 
     @Override

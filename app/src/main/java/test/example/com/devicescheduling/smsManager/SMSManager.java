@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import test.example.com.devicescheduling.Constants;
 import test.example.com.devicescheduling.encryption.AES;
+import test.example.com.devicescheduling.resourceManager.ResourceManager;
 
 /**
  * Created by Shoukhin on 7/5/2018.
@@ -38,12 +39,26 @@ public class SMSManager implements Serializable {
         this.fullMessage = decryptedMessage;
     }
 
-    public boolean isSMSForThisApp() {
+    public boolean isFieldsValidated() {
         String splitMessages[];
         try {
             splitMessages = fullMessage.split(SEPARATOR_CHARACTER);
             if (splitMessages.length == ACCEPTED_LENGTH_OF_MESSAGE
                     && splitMessages[0].equals(APP_NAME)) {
+
+                // Checking fields validation
+                long tempLongToValidate = Long.parseLong(splitMessages[1]);
+                int tempImageID = Integer.parseInt(splitMessages[2]);
+                int tempSoundID = Integer.parseInt(splitMessages[3]);
+                int tempPhoneStatus = Integer.parseInt(splitMessages[4]);
+
+                if (tempImageID < 0 || tempImageID >= ResourceManager.imageResources.length)
+                    return false;
+                if (tempSoundID < 0 || tempSoundID >= ResourceManager.soundResources.length)
+                    return false;
+                if (tempPhoneStatus < 0 || tempPhoneStatus >= 3)
+                    return false;
+
                 return true;
             }
         } catch (Exception e) {
@@ -74,6 +89,7 @@ public class SMSManager implements Serializable {
 
         return encryptedMessage;
     }
+
     public void sendSMS() {
         try {
             String formattedSMS = getFormattedSMS();

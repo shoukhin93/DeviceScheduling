@@ -98,7 +98,6 @@ public class SetSchedule extends AppCompatActivity {
         dbModel.setImage(smsManager.getImage());
         dbModel.setSound(smsManager.getSound());
         dbModel.setTimestamp(smsManager.getTimestamp());
-        Log.d(Constants.LOGTAG, smsManager.getTimestamp());
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         databaseHelper.insertMyAlarm(dbModel);
     }

@@ -9,8 +9,8 @@ import test.example.com.devicescheduling.R;
  */
 
 public class ResourceManager {
-    public static final Integer[] imageResources = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3,
-            R.drawable.pic4, R.drawable.pic5
+    public static final Integer[] imageResources = {R.drawable.pic1, R.drawable.pic2,
+            R.drawable.pic3, R.drawable.pic4, R.drawable.pic5
     };
     public static final int[] soundResources = {R.raw.crazy_smile
     };
@@ -24,11 +24,7 @@ public class ResourceManager {
     }
 
     public static int getMappedImageResourceID(int imageResourceID) {
-        for (int i = 0; i < imageResources.length; i++) {
-            if (imageResourceID == imageResources[i])
-                return imageResources[i];
-        }
-        return imageResources[0];
+        return imageResources[imageResourceID];
     }
 
     public static int mapSoundResource(int soundResourceID) {
@@ -40,11 +36,7 @@ public class ResourceManager {
     }
 
     public static int getMappedSoundResourceID(int soundResourceID) {
-        for (int i = 0; i < soundResources.length; i++) {
-            if (soundResourceID == soundResources[i])
-                return soundResources[i];
-        }
-        return soundResources[0];
+        return soundResources[soundResourceID];
     }
 
     public static int mapPhoneStatusFromName(String status) {
