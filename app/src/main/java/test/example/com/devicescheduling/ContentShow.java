@@ -70,7 +70,5 @@ public class ContentShow extends AppCompatActivity {
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.setRingerMode(status);
         }
-
-
     }
 }
