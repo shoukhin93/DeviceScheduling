@@ -14,6 +14,8 @@ public class ResourceManager {
         switch (imageResourceID) {
             case R.drawable.pic1:
                 return 1;
+            case R.drawable.pic2:
+                return 2;
             default:
                 return 1;
         }
@@ -23,6 +25,8 @@ public class ResourceManager {
         switch (imageResourceID) {
             case 1:
                 return R.drawable.pic1;
+            case 2:
+                return R.drawable.pic2;
             default:
                 return R.drawable.pic1;
         }

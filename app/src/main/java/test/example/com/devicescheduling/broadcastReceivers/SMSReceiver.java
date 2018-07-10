@@ -47,6 +47,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
                             DatabaseHelper dbHelper = new DatabaseHelper(context);
                             long id = dbHelper.insertAlarmHistory(alarmHistoryDBModel);
+                            Log.d(Constants.LOGTAG, "inserted: " + id);
 
                             ManagerOfAlarms alarms = new ManagerOfAlarms(context);
                             //alarms.setAlarm(smsManager.getTimestamp(), (int) id);
