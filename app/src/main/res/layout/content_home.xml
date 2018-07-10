@@ -21,37 +21,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="asd"
-            android:textStyle="italic" />
+            android:padding="8dp"
+            android:text="@string/instructions"
+            android:textStyle="italic"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/set_schedule_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
             android:gravity="center"
-            android:text="Set Schedule" />
+            android:text="GET STARTED"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="The person must allow your phone number to set schedule"
-            android:textStyle="italic" />
-
-        <Button
-            android:id="@+id/allowed_numbers_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Allowed Number" />
-    </LinearLayout>
 
 </LinearLayout>

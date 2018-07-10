@@ -16,7 +16,6 @@ import android.widget.Button;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button setScheduleButton;
-    Button allowedNumbersButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +34,11 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setScheduleButton = findViewById(R.id.set_schedule_button);
-        allowedNumbersButton = findViewById(R.id.allowed_numbers_button);
 
         setScheduleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Home.this, AddSchedule.class));
-            }
-        });
-
-        allowedNumbersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Home.this, AllowedNumbers.class));
             }
         });
     }

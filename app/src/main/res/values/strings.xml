@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">DeviceScheduling</string>
+    <string name="instructions">With this app you can set a scheduled alarm with image and sound
+        to any android smartphones.\n\n
+        Of course the receiver must have this app installed and your phone number must be at
+        his allowed phone number list.\n\n
+        So, go ahead and have fun!
+    </string>
     <string-array name="sounds">
         <item>1</item>
         <item>2</item>
