@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +19,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import test.example.com.devicescheduling.resourceManager.ResourceManager;
@@ -105,11 +108,28 @@ public class AddSchedule extends AppCompatActivity {
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String soundName = soundListSpinner.getSelectedItem().toString();
-                soundResourceID = getSoundResourceIDFromName(soundName);
-                mediaPlayer = MediaPlayer.create(AddSchedule.this,
-                        soundResourceID);
-                mediaPlayer.start();
+
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    playSoundButton.setImageResource(R.drawable.play_sound_icon);
+                } else {
+                    playSoundButton.setImageResource(R.drawable.sound_stop_icon);
+
+                    String soundName = soundListSpinner.getSelectedItem().toString();
+                    int tempSoundResourceID = Integer.parseInt(soundName);
+                    soundResourceID = ResourceManager.getMappedSoundResourceID(
+                            tempSoundResourceID - 1);
+                    mediaPlayer = MediaPlayer.create(AddSchedule.this,
+                            soundResourceID);
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            playSoundButton.setImageResource(R.drawable.play_sound_icon);
+                        }
+                    });
+                }
+
             }
         });
 
@@ -143,12 +163,6 @@ public class AddSchedule extends AppCompatActivity {
         });
     }
 
-    private int getSoundResourceIDFromName(String soundName) {
-        if (soundName.equals("1")) {
-            return R.raw.crazy_smile;
-        }
-        return 0;
-    }
 
     private void initializeVariables() {
         dateChangeButton = findViewById(R.id.date_change_button);
@@ -165,8 +179,23 @@ public class AddSchedule extends AppCompatActivity {
         mCurrentDate = Calendar.getInstance();
 
         // Default values
-        imageResourceID = R.drawable.pic1;
-        soundResourceID = R.raw.crazy_smile;
+        imageResourceID = ResourceManager.getMappedImageResourceID(0);
+        soundResourceID = ResourceManager.getMappedSoundResourceID(0);
+        setSoundSpinnerTexts();
+    }
+
+    private void setSoundSpinnerTexts() {
+        List<String> spinnerArray = new ArrayList<>();
+
+        for (int i = 0; i < ResourceManager.soundResources.length; i++) {
+            spinnerArray.add(String.valueOf(i + 1));
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        soundListSpinner.setAdapter(adapter);
     }
 
     private void setCurrentDateText() {

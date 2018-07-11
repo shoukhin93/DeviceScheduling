@@ -12,7 +12,7 @@ public class ResourceManager {
     public static final Integer[] imageResources = {R.drawable.pic1, R.drawable.pic2,
             R.drawable.pic3, R.drawable.pic4, R.drawable.pic5
     };
-    public static final int[] soundResources = {R.raw.crazy_smile
+    public static final int[] soundResources = {R.raw.sound1, R.raw.sound2
     };
 
     public static int mapImageResource(int imageResourceID) {
@@ -51,4 +51,11 @@ public class ResourceManager {
                 return -1;
         }
     }
+
+   /* public static int getSoundResourceIDFromName(int soundName) {
+        if (soundName.equals("1")) {
+            return R.raw.sound1;
+        }
+        return 0;
+    }*/
 }
