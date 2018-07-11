@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,7 +29,6 @@ import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManag
 public class AllowedNumbers extends AppCompatActivity {
     Button saveButton;
     EditText phoneNumberEditText;
-    EditText nameEditText;
     ListView allowedNumbersListView;
     FloatingActionButton pickContact;
 
@@ -52,13 +52,13 @@ public class AllowedNumbers extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String number = phoneNumberEditText.getText().toString();
-                String name = nameEditText.getText().toString();
                 SharedPrefManager manager = SharedPrefManager.getInstance(AllowedNumbers.this);
-                manager.saveAllowedNumber(number, name);
+                manager.saveAllowedNumber(number);
                 Toast.makeText(getApplicationContext(), "Number Saved!",
                         Toast.LENGTH_SHORT).show();
 
                 showAllAllowedNumbers();
+                phoneNumberEditText.setText("");
             }
         });
 
@@ -66,9 +66,7 @@ public class AllowedNumbers extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String key = sharedPrefValueIndexes.get(position);
-                String name = (String) allowedNumbers.get(key);
                 phoneNumberEditText.setText(key);
-                nameEditText.setText(name);
             }
         });
 
@@ -117,7 +115,6 @@ public class AllowedNumbers extends AppCompatActivity {
     private void initializeVariables() {
         saveButton = findViewById(R.id.save_button);
         phoneNumberEditText = findViewById(R.id.phone_number_edit_text);
-        nameEditText = findViewById(R.id.name_edit_text);
         allowedNumbersListView = findViewById(R.id.allowed_numbers_list_view);
         pickContact = findViewById(R.id.pick_contact);
     }
@@ -128,8 +125,15 @@ public class AllowedNumbers extends AppCompatActivity {
         ArrayList<String> tempAllowedNumbers = new ArrayList<>();
 
         for (Map.Entry<String, ?> allowedNumber : allowedNumbers.entrySet()) {
-            String tempAllowedNumber = allowedNumber.getKey() + " ("
-                    + allowedNumber.getValue() + ")";
+            String allowedPersonName = manager.getNameFromNumber(allowedNumber.getKey());
+            String tempAllowedNumber;
+
+            if (!TextUtils.isEmpty(allowedPersonName)) {
+                tempAllowedNumber = allowedNumber.getKey() + " ("
+                        + allowedPersonName + ")";
+            } else {
+                tempAllowedNumber = allowedNumber.getKey();
+            }
             tempAllowedNumbers.add(tempAllowedNumber);
         }
 

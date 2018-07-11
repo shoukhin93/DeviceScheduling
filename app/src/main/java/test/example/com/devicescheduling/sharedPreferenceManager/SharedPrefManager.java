@@ -2,6 +2,9 @@ package test.example.com.devicescheduling.sharedPreferenceManager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 
 import java.util.Map;
@@ -24,26 +27,24 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public void saveAllowedNumber(String number, String name) {
+    public void saveAllowedNumber(String number) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if (TextUtils.isEmpty(name))
-            name = Constants.NO_NAME;
-        editor.putString(number, name);
+        editor.putBoolean(number, true);
         editor.apply();
     }
 
-    public String getNameFromNumber(String number) {
+   /* public String getNameFromNumber(String number) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
                 Context.MODE_PRIVATE);
         return sharedPreferences.getString(number, null);
-    }
+    }*/
 
     public boolean isAllowed(String number) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
                 Context.MODE_PRIVATE);
-        return sharedPreferences.getString(number, null) != null;
+        return sharedPreferences.getBoolean(number, false);
     }
 
     public Map<String, ?> getAllAllowedNumbers() {
@@ -58,5 +59,23 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(key);
         editor.apply();
+    }
+
+    public String getNameFromNumber(String SMSSenderNumber) {
+        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.
+                CONTENT_FILTER_URI, Uri.encode(SMSSenderNumber));
+        Cursor c = mCtx.getContentResolver().query(lookupUri,
+                new String[]{ContactsContract.Data.DISPLAY_NAME},
+                null, null, null);
+        try {
+            c.moveToFirst();
+            String displayName = c.getString(0);
+            return displayName;
+
+        } catch (Exception e) {
+        } finally {
+            c.close();
+        }
+        return "";
     }
 }
