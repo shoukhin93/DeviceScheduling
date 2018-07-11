@@ -52,12 +52,16 @@ public class SMSManager implements Serializable {
                 int tempSoundID = Integer.parseInt(splitMessages[3]);
                 int tempPhoneStatus = Integer.parseInt(splitMessages[4]);
 
-                if (tempImageID < 0 || tempImageID >= ResourceManager.imageResources.length)
+                if (tempImageID < 0 || tempImageID >= ResourceManager.imageResources.length) {
                     return false;
-                if (tempSoundID < 0 || tempSoundID >= ResourceManager.soundResources.length)
+                }
+
+                if (tempSoundID < 0 || tempSoundID >= ResourceManager.soundResources.length) {
                     return false;
-                if (tempPhoneStatus < 0 || tempPhoneStatus >= 3)
+                }
+                if (tempPhoneStatus < -1 || tempPhoneStatus >= 3) {
                     return false;
+                }
 
                 return true;
             }

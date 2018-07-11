@@ -51,11 +51,4 @@ public class ResourceManager {
                 return -1;
         }
     }
-
-   /* public static int getSoundResourceIDFromName(int soundName) {
-        if (soundName.equals("1")) {
-            return R.raw.sound1;
-        }
-        return 0;
-    }*/
 }

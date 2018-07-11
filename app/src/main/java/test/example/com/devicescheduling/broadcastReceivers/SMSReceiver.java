@@ -3,7 +3,10 @@ package test.example.com.devicescheduling.broadcastReceivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
@@ -28,13 +31,15 @@ public class SMSReceiver extends BroadcastReceiver {
                             .createFromPdu((byte[]) pdusObj[i]);
                     String SMSSenderNumber = currentMessage
                             .getDisplayOriginatingAddress();
+                    String SMSSenderName = getSMSSenderName(context, SMSSenderNumber);
+                    Log.d(Constants.LOGTAG, SMSSenderName);
 
                     // Checking if sender is in allowed group
                     SharedPrefManager manager = SharedPrefManager.getInstance(context);
                     if (manager.isAllowed(SMSSenderNumber)) {
                         String message = currentMessage.getDisplayMessageBody();
                         SMSManager smsManager = new SMSManager(message);
-
+                        Log.d(Constants.LOGTAG, "Validated " + smsManager.isFieldsValidated());
                         if (smsManager.isFieldsValidated()) {
                             smsManager.splitMessage();
 
@@ -47,6 +52,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
                             DatabaseHelper dbHelper = new DatabaseHelper(context);
                             long id = dbHelper.insertAlarmHistory(alarmHistoryDBModel);
+                            Log.d(Constants.LOGTAG, "inserted " + id);
 
                             ManagerOfAlarms alarms = new ManagerOfAlarms(context);
                             alarms.setAlarm(smsManager.getTimestamp(), (int) id);
@@ -57,5 +63,23 @@ public class SMSReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String getSMSSenderName(Context context, String SMSSenderNumber) {
+        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.
+                CONTENT_FILTER_URI, Uri.encode(SMSSenderNumber));
+        Cursor c = context.getContentResolver().query(lookupUri,
+                new String[]{ContactsContract.Data.DISPLAY_NAME},
+                null, null, null);
+        try {
+            c.moveToFirst();
+            String displayName = c.getString(0);
+            return displayName;
+
+        } catch (Exception e) {
+        } finally {
+            c.close();
+        }
+        return "";
     }
 }
