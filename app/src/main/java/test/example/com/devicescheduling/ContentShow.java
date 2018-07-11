@@ -120,7 +120,7 @@ public class ContentShow extends AppCompatActivity {
 
     private int getSoundResourceId(String soundID) {
         int mappedSoundResourceID = Integer.parseInt(soundID);
-        int soundResourceID = ResourceManager.getMappedSoundResourceID(mappedSoundResourceID);
+        int soundResourceID = ResourceManager.getSound(mappedSoundResourceID);
         return soundResourceID;
     }
 

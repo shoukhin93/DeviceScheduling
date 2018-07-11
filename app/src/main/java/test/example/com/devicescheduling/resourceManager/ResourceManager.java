@@ -27,15 +27,7 @@ public class ResourceManager {
         return imageResources[imageResourceID];
     }
 
-    public static int mapSoundResource(int soundResourceID) {
-        for (int i = 0; i < soundResources.length; i++) {
-            if (soundResourceID == soundResources[i])
-                return i;
-        }
-        return 0;
-    }
-
-    public static int getMappedSoundResourceID(int soundResourceID) {
+    public static int getSound(int soundResourceID) {
         return soundResources[soundResourceID];
     }
 

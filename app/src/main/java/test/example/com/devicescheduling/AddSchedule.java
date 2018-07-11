@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -105,6 +106,18 @@ public class AddSchedule extends AppCompatActivity {
             }
         });
 
+        soundListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                soundResourceID = (int) soundListSpinner.getSelectedItemId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +130,7 @@ public class AddSchedule extends AppCompatActivity {
 
                     String soundName = soundListSpinner.getSelectedItem().toString();
                     int tempSoundResourceID = Integer.parseInt(soundName);
-                    soundResourceID = ResourceManager.getMappedSoundResourceID(
+                    soundResourceID = ResourceManager.getSound(
                             tempSoundResourceID - 1);
                     mediaPlayer = MediaPlayer.create(AddSchedule.this,
                             soundResourceID);
@@ -144,14 +157,12 @@ public class AddSchedule extends AppCompatActivity {
                 }
 
                 int mappedImageResourceID = ResourceManager.mapImageResource(imageResourceID);
-                int mappedSoundResourceID = ResourceManager.
-                        mapSoundResource(soundResourceID);
                 int mappedPhoneStatus = ResourceManager.mapPhoneStatusFromName(phoneStatusSpinner
                         .getSelectedItem().toString());
 
                 SMSManager smsManager = new SMSManager();
                 smsManager.setImage(String.valueOf(mappedImageResourceID));
-                smsManager.setSound(String.valueOf(mappedSoundResourceID));
+                smsManager.setSound(String.valueOf(soundResourceID));
                 smsManager.setMessage(messageEditText.getText().toString());
                 smsManager.setPhoneStatus(String.valueOf(mappedPhoneStatus));
                 smsManager.setTimestamp(String.valueOf(mCurrentDate.getTimeInMillis()));
@@ -180,7 +191,7 @@ public class AddSchedule extends AppCompatActivity {
 
         // Default values
         imageResourceID = ResourceManager.getMappedImageResourceID(0);
-        soundResourceID = ResourceManager.getMappedSoundResourceID(0);
+        soundResourceID = ResourceManager.getSound(0);
         setSoundSpinnerTexts();
     }
 
@@ -224,7 +235,7 @@ public class AddSchedule extends AppCompatActivity {
 
         if (requestCode == SELECT_IMAGE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                imageResourceID = data.getIntExtra(Constants.IMAGE_RESOURSE_CODE, 0);
+                imageResourceID = data.getIntExtra(Constants.IMAGE_RESOURCE_CODE, 0);
                 setImageFromResource(imageResourceID);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

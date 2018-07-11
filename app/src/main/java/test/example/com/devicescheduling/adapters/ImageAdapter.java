@@ -42,7 +42,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ItemViewHold
             @Override
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(Constants.IMAGE_RESOURSE_CODE, imageList.get(position));
+                returnIntent.putExtra(Constants.IMAGE_RESOURCE_CODE, imageList.get(position));
                 context.setResult(Activity.RESULT_OK, returnIntent);
                 context.finish();
             }
