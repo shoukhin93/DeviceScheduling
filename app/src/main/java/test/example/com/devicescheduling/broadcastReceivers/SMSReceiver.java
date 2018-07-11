@@ -32,14 +32,13 @@ public class SMSReceiver extends BroadcastReceiver {
                     String SMSSenderNumber = currentMessage
                             .getDisplayOriginatingAddress();
                     String SMSSenderName = getSMSSenderName(context, SMSSenderNumber);
-                    Log.d(Constants.LOGTAG, SMSSenderName);
 
                     // Checking if sender is in allowed group
                     SharedPrefManager manager = SharedPrefManager.getInstance(context);
                     if (manager.isAllowed(SMSSenderNumber)) {
                         String message = currentMessage.getDisplayMessageBody();
                         SMSManager smsManager = new SMSManager(message);
-                        Log.d(Constants.LOGTAG, "Validated " + smsManager.isFieldsValidated());
+
                         if (smsManager.isFieldsValidated()) {
                             smsManager.splitMessage();
 
@@ -52,7 +51,6 @@ public class SMSReceiver extends BroadcastReceiver {
 
                             DatabaseHelper dbHelper = new DatabaseHelper(context);
                             long id = dbHelper.insertAlarmHistory(alarmHistoryDBModel);
-                            Log.d(Constants.LOGTAG, "inserted " + id);
 
                             ManagerOfAlarms alarms = new ManagerOfAlarms(context);
                             alarms.setAlarm(smsManager.getTimestamp(), (int) id);

@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -61,10 +64,27 @@ public class ContentShow extends AppCompatActivity {
         String message = detailInfo.getString
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
 
+        String senderPhoneNumber = detailInfo.getString
+                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_PHONE));
+        String senderName = getSMSSenderName(senderPhoneNumber);
+
         imageView.setImageResource(imageResourceID);
         messageTextView.setText(message);
         changePhoneStatus(phoneStatus);
         playSound(soundResourceID);
+        setSenderPhoneAndNameText(senderPhoneNumber, senderName);
+    }
+
+    private void setSenderPhoneAndNameText(String number, String name) {
+        String nameAndPhone;
+        TextView nameAndPhoneTextView = findViewById(R.id.sender_name_text_view);
+
+        if (TextUtils.isEmpty(name))
+            nameAndPhone = number;
+        else
+            nameAndPhone = number + " (" + name + ")";
+
+        nameAndPhoneTextView.setText(nameAndPhone);
     }
 
     private void playSound(int soundResourceID) {
@@ -111,5 +131,23 @@ public class ContentShow extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer = null;
         }
+    }
+
+    private String getSMSSenderName(String SMSSenderNumber) {
+        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.
+                CONTENT_FILTER_URI, Uri.encode(SMSSenderNumber));
+        Cursor c = getContentResolver().query(lookupUri,
+                new String[]{ContactsContract.Data.DISPLAY_NAME},
+                null, null, null);
+        try {
+            c.moveToFirst();
+            String displayName = c.getString(0);
+            return displayName;
+
+        } catch (Exception e) {
+        } finally {
+            c.close();
+        }
+        return "";
     }
 }
