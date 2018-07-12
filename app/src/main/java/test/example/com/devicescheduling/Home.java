@@ -1,7 +1,10 @@
 package test.example.com.devicescheduling;
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.PhoneNumberUtils;
@@ -48,6 +51,7 @@ public class Home extends AppCompatActivity
         });
 
         requestPermissions();
+        requestDoNotDisturbPermission();
     }
 
     @Override
@@ -86,5 +90,17 @@ public class Home extends AppCompatActivity
                 new String[]{Manifest.permission.SEND_SMS,
                         Manifest.permission.READ_CONTACTS},
                 REQUEST_SMS_PERMISSION);
+    }
+
+    private void requestDoNotDisturbPermission(){
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !notificationManager.isNotificationPolicyAccessGranted()) {
+            Intent intent = new Intent(
+                    android.provider.Settings
+                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            startActivity(intent);
+        }
     }
 }

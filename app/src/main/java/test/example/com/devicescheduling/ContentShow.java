@@ -130,6 +130,14 @@ public class ContentShow extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+        }
+    }
+
     private String getSMSSenderName(String SMSSenderNumber) {
         Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.
                 CONTENT_FILTER_URI, Uri.encode(SMSSenderNumber));
