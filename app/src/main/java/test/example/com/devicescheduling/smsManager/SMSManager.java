@@ -62,12 +62,12 @@ public class SMSManager implements Serializable {
                 if (tempPhoneStatus < -1 || tempPhoneStatus >= 3) {
                     return false;
                 }
-
                 return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -85,6 +85,7 @@ public class SMSManager implements Serializable {
                 SEPARATOR_CHARACTER + image + SEPARATOR_CHARACTER + sound +
                 SEPARATOR_CHARACTER + phoneStatus + SEPARATOR_CHARACTER + message;
         String encryptedMessage = null;
+
         try {
             encryptedMessage = AES.encrypt(formattedSMS);
         } catch (Exception e) {
@@ -103,6 +104,10 @@ public class SMSManager implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void removeCountryCode(String phoneNumber){
+
     }
 
     public String getImage() {

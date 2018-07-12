@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class AlarmHistory extends AppCompatActivity {
     private String formatTimeInMillisToDate(String timestamp) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Long.parseLong(timestamp));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY",
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
                 Locale.ENGLISH);
         return dateFormat.format(calendar.getTime());
     }
@@ -80,8 +81,8 @@ public class AlarmHistory extends AppCompatActivity {
     private String getPhoneNumberWithName(String phoneNumber) {
         SharedPrefManager manager = SharedPrefManager.getInstance(this);
         String name = manager.getNameFromNumber(phoneNumber);
-        if (name != null)
-            return phoneNumber + " (" + manager.getNameFromNumber(phoneNumber) + ")";
+        if (!TextUtils.isEmpty(name))
+            return phoneNumber + " (" + name + ")";
 
         return phoneNumber;
     }

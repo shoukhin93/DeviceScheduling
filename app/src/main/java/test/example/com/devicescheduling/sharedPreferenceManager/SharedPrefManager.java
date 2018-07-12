@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.Map;
 
@@ -35,16 +37,14 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-   /* public String getNameFromNumber(String number) {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
-                Context.MODE_PRIVATE);
-        return sharedPreferences.getString(number, null);
-    }*/
-
     public boolean isAllowed(String number) {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,
-                Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(number, false);
+        Map<String, ?> allowedNumbers = getAllAllowedNumbers();
+        for (Map.Entry<String, ?> allowedNumber : allowedNumbers.entrySet()) {
+            if (PhoneNumberUtils.compare(allowedNumber.getKey(), number)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Map<String, ?> getAllAllowedNumbers() {

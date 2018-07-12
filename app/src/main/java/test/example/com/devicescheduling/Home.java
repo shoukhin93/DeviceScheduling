@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +20,6 @@ import android.widget.Button;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button setScheduleButton;
-    private final int PICK_CONTACT = 3;
     int REQUEST_SMS_PERMISSION = 1;
 
     @Override

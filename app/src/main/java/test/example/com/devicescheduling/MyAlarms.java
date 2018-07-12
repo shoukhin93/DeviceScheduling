@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -50,7 +51,7 @@ public class MyAlarms extends AppCompatActivity {
             historyModel.setTableName(MyAlarmsDBModel.TABLE_NAME);
 
             String tempImageResourceID = scheduleHistory.getString
-                    (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_IMAGE));
+                    (scheduleHistory.getColumnIndex(MyAlarmsDBModel.COLUMN_IMAGE));
             int mappedImageResourceID = ResourceManager.getMappedImageResourceID(
                     Integer.parseInt(tempImageResourceID));
             historyModel.setImageResourceID(mappedImageResourceID);
@@ -65,6 +66,7 @@ public class MyAlarms extends AppCompatActivity {
             String tempTimestamp = scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP));
             historyModel.setTimestamp(formatTimeInMillisToDate(tempTimestamp));
+            //historyModel.setTimestamp(tempTimestamp);
             //Log.d(Constants.LOGTAG, tempTimestamp);
 
 
@@ -74,9 +76,10 @@ public class MyAlarms extends AppCompatActivity {
     }
 
     private String formatTimeInMillisToDate(String timestamp) {
+        Log.d(Constants.LOGTAG,timestamp);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Long.parseLong(timestamp));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY",
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
                 Locale.ENGLISH);
         return dateFormat.format(calendar.getTime());
     }
@@ -84,8 +87,8 @@ public class MyAlarms extends AppCompatActivity {
     private String getPhoneNumberWithName(String phoneNumber) {
         SharedPrefManager manager = SharedPrefManager.getInstance(this);
         String name = manager.getNameFromNumber(phoneNumber);
-        if (name != null)
-            return phoneNumber + " (" + manager.getNameFromNumber(phoneNumber) + ")";
+        if (!TextUtils.isEmpty(name))
+            return phoneNumber + " (" + name + ")";
 
         return phoneNumber;
     }

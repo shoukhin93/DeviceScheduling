@@ -31,7 +31,6 @@ public class SMSReceiver extends BroadcastReceiver {
                             .createFromPdu((byte[]) pdusObj[i]);
                     String SMSSenderNumber = currentMessage
                             .getDisplayOriginatingAddress();
-                    String SMSSenderName = getSMSSenderName(context, SMSSenderNumber);
 
                     // Checking if sender is in allowed group
                     SharedPrefManager manager = SharedPrefManager.getInstance(context);
@@ -61,23 +60,5 @@ public class SMSReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private String getSMSSenderName(Context context, String SMSSenderNumber) {
-        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.
-                CONTENT_FILTER_URI, Uri.encode(SMSSenderNumber));
-        Cursor c = context.getContentResolver().query(lookupUri,
-                new String[]{ContactsContract.Data.DISPLAY_NAME},
-                null, null, null);
-        try {
-            c.moveToFirst();
-            String displayName = c.getString(0);
-            return displayName;
-
-        } catch (Exception e) {
-        } finally {
-            c.close();
-        }
-        return "";
     }
 }
