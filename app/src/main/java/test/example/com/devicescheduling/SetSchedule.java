@@ -14,6 +14,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +50,13 @@ public class SetSchedule extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String phoneNumber = phoneNumberEditText.getText().toString();
                 checkPermission();
+                if (!isValidNumber(phoneNumber)) {
+                    Toast.makeText(SetSchedule.this,
+                            "Please enter valid number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog
                         .Builder(SetSchedule.this);
@@ -59,8 +67,7 @@ public class SetSchedule extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
-                                smsManager.setReceiverPhoneNumber(phoneNumberEditText.
-                                        getText().toString());
+                                smsManager.setReceiverPhoneNumber(phoneNumber);
                                 smsManager.sendSMS();
                                 saveInfoToDatabase();
                                 Toast.makeText(SetSchedule.this, "Schedule is set",
@@ -68,7 +75,7 @@ public class SetSchedule extends AppCompatActivity {
 
                                 Intent intent = new Intent(SetSchedule.this,
                                         MyAlarms.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
                                         Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
@@ -96,6 +103,15 @@ public class SetSchedule extends AppCompatActivity {
                 startActivityForResult(intent, PICK_CONTACT);
             }
         });
+    }
+
+    private boolean isValidNumber(String phoneNumber) {
+        if (TextUtils.isEmpty(phoneNumber))
+            return false;
+        else if (!PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber))
+            return false;
+        return true;
+
     }
 
     private void saveInfoToDatabase() {

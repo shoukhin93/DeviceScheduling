@@ -76,7 +76,6 @@ public class MyAlarms extends AppCompatActivity {
     }
 
     private String formatTimeInMillisToDate(String timestamp) {
-        Log.d(Constants.LOGTAG,timestamp);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Long.parseLong(timestamp));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
