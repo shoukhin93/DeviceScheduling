@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".AllowedNumbers">
@@ -40,33 +41,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
         android:text="Save"
         android:textColor="@android:color/white" />
 
-    <TextView
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:id="@+id/instruction_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Allowed Numbers"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:background="@android:color/white"
+        android:elevation="1dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="Tap to edit, Long press to delete"
-        android:textSize="14sp"
-        android:textStyle="italic" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Allowed Numbers"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Tap to edit, Long press to delete"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/allowed_numbers_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

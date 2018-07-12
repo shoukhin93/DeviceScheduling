@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class AllowedNumbers extends AppCompatActivity {
     EditText phoneNumberEditText;
     ListView allowedNumbersListView;
     FloatingActionButton pickContact;
+    LinearLayout instructionLinearLayout;
 
     Map<String, ?> allowedNumbers;
     ArrayList<String> sharedPrefValueIndexes;
@@ -117,6 +119,14 @@ public class AllowedNumbers extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.phone_number_edit_text);
         allowedNumbersListView = findViewById(R.id.allowed_numbers_list_view);
         pickContact = findViewById(R.id.pick_contact);
+        instructionLinearLayout = findViewById(R.id.instruction_linear_layout);
+    }
+
+    private void setInstructions() {
+        if (allowedNumbers.size() == 0) {
+            instructionLinearLayout.setVisibility(View.GONE);
+        } else
+            instructionLinearLayout.setVisibility(View.VISIBLE);
     }
 
     private void showAllAllowedNumbers() {
@@ -144,6 +154,7 @@ public class AllowedNumbers extends AppCompatActivity {
 
         // Saving the index number of map to update / delete data
         sharedPrefValueIndexes = new ArrayList<>(allowedNumbers.keySet());
+        setInstructions();
     }
 
     private void removePhone(int position) {
