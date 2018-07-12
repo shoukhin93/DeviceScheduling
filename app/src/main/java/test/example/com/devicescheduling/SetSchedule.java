@@ -54,6 +54,7 @@ public class SetSchedule extends AppCompatActivity {
                         .Builder(SetSchedule.this);
                 alertDialogBuilder.setMessage("Are you sure want" +
                         "to set schedule? Standard SMS charge may be applicable");
+
                 alertDialogBuilder.setPositiveButton("yes",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -64,6 +65,12 @@ public class SetSchedule extends AppCompatActivity {
                                 saveInfoToDatabase();
                                 Toast.makeText(SetSchedule.this, "Schedule is set",
                                         Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(SetSchedule.this,
+                                        MyAlarms.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|
+                                        Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
                             }
                         });
 
