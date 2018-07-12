@@ -66,9 +66,6 @@ public class MyAlarms extends AppCompatActivity {
             String tempTimestamp = scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP));
             historyModel.setTimestamp(formatTimeInMillisToDate(tempTimestamp));
-            //historyModel.setTimestamp(tempTimestamp);
-            //Log.d(Constants.LOGTAG, tempTimestamp);
-
 
             historyData.add(historyModel);
         }

@@ -12,8 +12,6 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +22,7 @@ import test.example.com.devicescheduling.resourceManager.ResourceManager;
 
 public class ContentShow extends AppCompatActivity {
     ImageView imageView;
+    TextView receiverTextView;
     TextView messageTextView;
     MediaPlayer mediaPlayer = null;
 
@@ -37,6 +36,7 @@ public class ContentShow extends AppCompatActivity {
 
         imageView = findViewById(R.id.content_image_view);
         messageTextView = findViewById(R.id.message_text_view);
+        receiverTextView = findViewById(R.id.receiver_text_view);
         Bundle bundle = getIntent().getExtras();
 
         if (bundle == null)
@@ -45,6 +45,10 @@ public class ContentShow extends AppCompatActivity {
         int id = bundle.getInt(Constants.ID);
         int phoneStatus = bundle.getInt(Constants.PHONE_STATUS);
         String tableName = bundle.getString(Constants.TABLE_NAME);
+        String receiverText = bundle.getString(Constants.RECEIVER);
+       // boolean isPreview
+
+        receiverTextView.setText(receiverText);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         Cursor detailInfo = databaseHelper.getDetailInfo(id, tableName);

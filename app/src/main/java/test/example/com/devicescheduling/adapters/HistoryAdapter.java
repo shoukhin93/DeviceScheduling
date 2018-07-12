@@ -51,6 +51,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         holder.historyMessageTextView.setText(historyList.get(position).getMessage());
         holder.historySetterNameTextView.setText(historyList.get(position).getSetterName());
         holder.historyDateTextView.setText(historyList.get(position).getTimestamp());
+
         if (isDefinedAsMySchedule) {
             holder.receiverTextView.setText("To: ");
         }
@@ -62,6 +63,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
                 intent.putExtra(Constants.ID, historyList.get(position).getId());
                 intent.putExtra(Constants.TABLE_NAME, historyList.get(position).getTableName());
                 intent.putExtra(Constants.PHONE_STATUS, -1);
+
+                if (isDefinedAsMySchedule)
+                    intent.putExtra(Constants.RECEIVER, Constants.TO);
+                else
+                    intent.putExtra(Constants.RECEIVER, Constants.FROM);
+
                 context.startActivity(intent);
             }
         });
