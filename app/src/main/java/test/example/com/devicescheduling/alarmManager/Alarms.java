@@ -38,6 +38,7 @@ public class Alarms extends BroadcastReceiver {
         i.putExtra(Constants.TABLE_NAME, AlarmHistoryDBModel.TABLE_NAME);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.putExtra(Constants.RECEIVER, Constants.FROM);
+        i.putExtra(Constants.PREVIEW, false);
         context.startActivity(i);
 
         wl.release();

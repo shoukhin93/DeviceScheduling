@@ -46,7 +46,7 @@ public class ContentShow extends AppCompatActivity {
         int phoneStatus = bundle.getInt(Constants.PHONE_STATUS);
         String tableName = bundle.getString(Constants.TABLE_NAME);
         String receiverText = bundle.getString(Constants.RECEIVER);
-       // boolean isPreview
+        boolean isPreview = bundle.getBoolean(Constants.PREVIEW);
 
         receiverTextView.setText(receiverText);
 
@@ -71,9 +71,12 @@ public class ContentShow extends AppCompatActivity {
 
         imageView.setImageResource(imageResourceID);
         messageTextView.setText(message);
-        changePhoneStatus(phoneStatus);
         playSound(soundResourceID);
         setSenderPhoneAndNameText(senderPhoneNumber, senderName);
+
+        if (!isPreview)
+            changePhoneStatus(phoneStatus);
+
     }
 
     private void setSenderPhoneAndNameText(String number, String name) {

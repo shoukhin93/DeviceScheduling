@@ -63,6 +63,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
                 intent.putExtra(Constants.ID, historyList.get(position).getId());
                 intent.putExtra(Constants.TABLE_NAME, historyList.get(position).getTableName());
                 intent.putExtra(Constants.PHONE_STATUS, -1);
+                intent.putExtra(Constants.PREVIEW, true);
 
                 if (isDefinedAsMySchedule)
                     intent.putExtra(Constants.RECEIVER, Constants.TO);
