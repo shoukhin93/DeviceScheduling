@@ -12,6 +12,8 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,9 +32,12 @@ public class ContentShow extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_show);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
         imageView = findViewById(R.id.content_image_view);
         messageTextView = findViewById(R.id.message_text_view);
@@ -47,6 +52,8 @@ public class ContentShow extends AppCompatActivity {
         String tableName = bundle.getString(Constants.TABLE_NAME);
         String receiverText = bundle.getString(Constants.RECEIVER);
         boolean isPreview = bundle.getBoolean(Constants.PREVIEW);
+
+        Log.d(Constants.LOGTAG, "status: " +phoneStatus);
 
         receiverTextView.setText(receiverText);
 
@@ -124,7 +131,7 @@ public class ContentShow extends AppCompatActivity {
 
     private int getSoundResourceId(String soundID) {
         int mappedSoundResourceID = Integer.parseInt(soundID);
-        int soundResourceID = ResourceManager.getSound(mappedSoundResourceID);
+        int soundResourceID = ResourceManager.getSoundFromID(mappedSoundResourceID);
         return soundResourceID;
     }
 

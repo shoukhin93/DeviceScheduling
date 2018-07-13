@@ -1,4 +1,4 @@
-package test.example.com.devicescheduling.encryption;
+package test.example.com.devicescheduling.encryptor;
 
 import java.security.Key;
 import javax.crypto.Cipher;

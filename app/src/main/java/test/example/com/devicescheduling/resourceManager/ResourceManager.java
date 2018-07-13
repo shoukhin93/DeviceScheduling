@@ -14,6 +14,7 @@ public class ResourceManager {
     };
     public static final int[] soundResources = {R.raw.sound1, R.raw.sound2
     };
+    public static final String[] soundNames = {"Crazy Smile", "Missile Alert"};
 
     public static int mapImageResource(int imageResourceID) {
         for (int i = 0; i < imageResources.length; i++) {
@@ -24,10 +25,16 @@ public class ResourceManager {
     }
 
     public static int getMappedImageResourceID(int imageResourceID) {
+        if (imageResourceID >= imageResources.length)
+            return imageResources[0];
+
         return imageResources[imageResourceID];
     }
 
-    public static int getSound(int soundResourceID) {
+    public static int getSoundFromID(int soundResourceID) {
+        if (soundResourceID >= soundResources.length)
+            return soundResources[0];
+
         return soundResources[soundResourceID];
     }
 

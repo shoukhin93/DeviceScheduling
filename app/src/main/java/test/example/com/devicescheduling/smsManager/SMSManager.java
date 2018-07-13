@@ -1,12 +1,10 @@
 package test.example.com.devicescheduling.smsManager;
 
 import android.telephony.SmsManager;
-import android.util.Log;
 
 import java.io.Serializable;
 
-import test.example.com.devicescheduling.Constants;
-import test.example.com.devicescheduling.encryption.AES;
+import test.example.com.devicescheduling.encryptor.AES;
 import test.example.com.devicescheduling.resourceManager.ResourceManager;
 
 /**

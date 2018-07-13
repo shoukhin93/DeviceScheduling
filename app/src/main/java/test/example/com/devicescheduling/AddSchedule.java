@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -45,7 +46,7 @@ public class AddSchedule extends AppCompatActivity {
     int mHour, mMinute, mAmPm;
     Calendar mCurrentDate;
     int imageResourceID;
-    int soundResourceID;
+    int selectedSoundID;
     MediaPlayer mediaPlayer;
 
     private final int SELECT_IMAGE_REQUEST_CODE = 1;
@@ -109,7 +110,7 @@ public class AddSchedule extends AppCompatActivity {
         soundListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                soundResourceID = (int) soundListSpinner.getSelectedItemId();
+                selectedSoundID = (int) soundListSpinner.getSelectedItemId();
             }
 
             @Override
@@ -128,10 +129,7 @@ public class AddSchedule extends AppCompatActivity {
                 } else {
                     playSoundButton.setImageResource(R.drawable.sound_stop_icon);
 
-                    String soundName = soundListSpinner.getSelectedItem().toString();
-                    int tempSoundResourceID = Integer.parseInt(soundName);
-                    soundResourceID = ResourceManager.getSound(
-                            tempSoundResourceID - 1);
+                    int soundResourceID = ResourceManager.getSoundFromID(selectedSoundID);
                     mediaPlayer = MediaPlayer.create(AddSchedule.this,
                             soundResourceID);
                     mediaPlayer.start();
@@ -162,7 +160,7 @@ public class AddSchedule extends AppCompatActivity {
 
                 SMSManager smsManager = new SMSManager();
                 smsManager.setImage(String.valueOf(mappedImageResourceID));
-                smsManager.setSound(String.valueOf(soundResourceID));
+                smsManager.setSound(String.valueOf(selectedSoundID));
                 smsManager.setMessage(messageEditText.getText().toString());
                 smsManager.setPhoneStatus(String.valueOf(mappedPhoneStatus));
                 smsManager.setTimestamp(String.valueOf(mCurrentDate.getTimeInMillis()));
@@ -191,16 +189,13 @@ public class AddSchedule extends AppCompatActivity {
 
         // Default values
         imageResourceID = ResourceManager.getMappedImageResourceID(0);
-        soundResourceID = ResourceManager.getSound(0);
+        selectedSoundID = ResourceManager.getSoundFromID(0);
         setSoundSpinnerTexts();
     }
 
     private void setSoundSpinnerTexts() {
         List<String> spinnerArray = new ArrayList<>();
-
-        for (int i = 0; i < ResourceManager.soundResources.length; i++) {
-            spinnerArray.add(String.valueOf(i + 1));
-        }
+        spinnerArray.addAll(Arrays.asList(ResourceManager.soundNames));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, spinnerArray);
