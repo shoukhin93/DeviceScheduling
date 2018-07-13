@@ -46,6 +46,7 @@ public class SMSReceiver extends BroadcastReceiver {
                             alarmHistoryDBModel.setImage(smsManager.getImage());
                             alarmHistoryDBModel.setSound(smsManager.getSound());
                             alarmHistoryDBModel.setMessage(smsManager.getMessage());
+                            alarmHistoryDBModel.setPhoneStatus(smsManager.getPhoneStatus());
                             alarmHistoryDBModel.setTimestamp(smsManager.getTimestamp());
 
                             DatabaseHelper dbHelper = new DatabaseHelper(context);

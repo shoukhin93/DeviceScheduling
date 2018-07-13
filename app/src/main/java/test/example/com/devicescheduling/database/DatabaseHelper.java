@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(MyAlarmsDBModel.COLUMN_MESSAGE, myAlarmsDBModel.getMessage());
         values.put(MyAlarmsDBModel.COLUMN_IMAGE, myAlarmsDBModel.getImage());
         values.put(MyAlarmsDBModel.COLUMN_SOUND, myAlarmsDBModel.getSound());
+        values.put(MyAlarmsDBModel.COLUMN_PHONE_STATUS, myAlarmsDBModel.getPhoneStatus());
         values.put(AlarmHistoryDBModel.COLUMN_TIMESTAMP, myAlarmsDBModel.getTimestamp());
 
         long id = db.insert(MyAlarmsDBModel.TABLE_NAME, null, values);
@@ -61,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(AlarmHistoryDBModel.COLUMN_MESSAGE, alarmHistoryDBModel.getMessage());
         values.put(AlarmHistoryDBModel.COLUMN_IMAGE, alarmHistoryDBModel.getImage());
         values.put(AlarmHistoryDBModel.COLUMN_SOUND, alarmHistoryDBModel.getSound());
+        values.put(AlarmHistoryDBModel.COLUMN_PHONE_STATUS, alarmHistoryDBModel.getPhoneStatus());
         values.put(AlarmHistoryDBModel.COLUMN_TIMESTAMP, alarmHistoryDBModel.getTimestamp());
 
         long id = db.insert(AlarmHistoryDBModel.TABLE_NAME, null, values);

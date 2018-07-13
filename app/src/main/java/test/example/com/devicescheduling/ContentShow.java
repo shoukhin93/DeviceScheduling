@@ -48,12 +48,9 @@ public class ContentShow extends AppCompatActivity {
             return;
 
         int id = bundle.getInt(Constants.ID);
-        int phoneStatus = bundle.getInt(Constants.PHONE_STATUS);
         String tableName = bundle.getString(Constants.TABLE_NAME);
         String receiverText = bundle.getString(Constants.RECEIVER);
         boolean isPreview = bundle.getBoolean(Constants.PREVIEW);
-
-        Log.d(Constants.LOGTAG, "status: " +phoneStatus);
 
         receiverTextView.setText(receiverText);
 
@@ -76,14 +73,19 @@ public class ContentShow extends AppCompatActivity {
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_PHONE));
         String senderName = getSMSSenderName(senderPhoneNumber);
 
+        String tempPhoneStatus = detailInfo.getString
+                (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_PHONE_STATUS));
+        int phoneStatus = Integer.parseInt(tempPhoneStatus);
+
+
         imageView.setImageResource(imageResourceID);
         messageTextView.setText(message);
-        playSound(soundResourceID);
         setSenderPhoneAndNameText(senderPhoneNumber, senderName);
 
         if (!isPreview)
             changePhoneStatus(phoneStatus);
 
+        playSound(soundResourceID);
     }
 
     private void setSenderPhoneAndNameText(String number, String name) {
@@ -118,6 +120,7 @@ public class ContentShow extends AppCompatActivity {
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
             startActivity(intent);
         } else {
+            Log.d(Constants.LOGTAG, "in else");
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.setRingerMode(status);
         }

@@ -11,6 +11,7 @@ public class MyAlarmsDBModel {
     public static final String COLUMN_MESSAGE = "message";
     public static final String COLUMN_IMAGE = "image";
     public static final String COLUMN_SOUND = "sound";
+    public static final String COLUMN_PHONE_STATUS = "phonestatus";
     public static final String COLUMN_TIMESTAMP = "timestamp";
 
     // Create table SQL query
@@ -21,6 +22,7 @@ public class MyAlarmsDBModel {
                     + COLUMN_MESSAGE + " TEXT,"
                     + COLUMN_IMAGE + " TEXT,"
                     + COLUMN_SOUND + " TEXT,"
+                    + COLUMN_PHONE_STATUS + " TEXT,"
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
@@ -29,6 +31,7 @@ public class MyAlarmsDBModel {
     private String message;
     private String image;
     private String sound;
+    private String phoneStatus;
     private String timestamp;
 
     public MyAlarmsDBModel() {
@@ -81,5 +84,13 @@ public class MyAlarmsDBModel {
 
     public void setSound(String sound) {
         this.sound = sound;
+    }
+
+    public String getPhoneStatus() {
+        return phoneStatus;
+    }
+
+    public void setPhoneStatus(String phoneStatus) {
+        this.phoneStatus = phoneStatus;
     }
 }
