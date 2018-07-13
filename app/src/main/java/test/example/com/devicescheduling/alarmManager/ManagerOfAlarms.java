@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,7 +55,7 @@ public class ManagerOfAlarms {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         Cursor schedules = databaseHelper.getAllScheduleHistory();
 
-        for (schedules.moveToFirst(); schedules.isAfterLast(); schedules.moveToNext()) {
+        for (schedules.moveToFirst(); !schedules.isAfterLast(); schedules.moveToNext()) {
 
             int id = schedules.getInt
                     (schedules.getColumnIndex(AlarmHistoryDBModel.COLUMN_ID));
