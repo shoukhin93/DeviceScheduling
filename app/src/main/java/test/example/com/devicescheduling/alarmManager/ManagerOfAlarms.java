@@ -21,8 +21,6 @@ import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 
 public class ManagerOfAlarms {
     private Context context;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",
-            Locale.ENGLISH);
 
     public ManagerOfAlarms(Context context) {
         this.context = context;
@@ -41,22 +39,11 @@ public class ManagerOfAlarms {
         }
     }
 
-   /* private Date stringToDateTime(String time) {
-        Date convertedTime = null;
-        try {
-            convertedTime = dateFormat.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return convertedTime;
-    }*/
-
     public void setBootTimeAlarms() {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         Cursor schedules = databaseHelper.getAllScheduleHistory();
 
         for (schedules.moveToFirst(); !schedules.isAfterLast(); schedules.moveToNext()) {
-
             int id = schedules.getInt
                     (schedules.getColumnIndex(AlarmHistoryDBModel.COLUMN_ID));
             String timeStamp = schedules.getString
