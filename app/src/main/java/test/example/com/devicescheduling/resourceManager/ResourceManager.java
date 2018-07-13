@@ -11,10 +11,12 @@ import test.example.com.devicescheduling.R;
 public class ResourceManager {
     public static final Integer[] imageResources = {R.drawable.pic1, R.drawable.pic2,
             R.drawable.pic3, R.drawable.pic4, R.drawable.pic5, R.drawable.pic6,
-            R.drawable.pic7, R.drawable.pic8,R.drawable.pic9,
+            R.drawable.pic7, R.drawable.pic8, R.drawable.pic9, R.drawable.pic10, R.drawable.pic11,
+            R.drawable.pic12, R.drawable.pic13,
     };
     public static final int[] soundResources = {R.raw.sound1, R.raw.sound2, R.raw.sound3,
-            R.raw.sound4, R.raw.sound5, R.raw.sound6, R.raw.sound7, R.raw.sound8
+            R.raw.sound4, R.raw.sound5, R.raw.sound6, R.raw.sound7, R.raw.sound8,
+            R.raw.sound9
     };
     public static final String[] soundNames = {"Crazy Smile", "Missile Alert", "Analog Alarm",
             "Ringtone 1", "Ringtone 2", "Ringtone 3", "Alarm 1", "Eluveitie isara"};
