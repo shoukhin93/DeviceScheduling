@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import test.example.com.devicescheduling.MyAlarms;
 import test.example.com.devicescheduling.database.model.AlarmHistoryDBModel;
 import test.example.com.devicescheduling.database.model.MyAlarmsDBModel;
 
@@ -71,13 +72,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAllScheduleHistory() {
-        String RAW_QUERY = "select * from " + AlarmHistoryDBModel.TABLE_NAME;
+        String RAW_QUERY = "select * from " + AlarmHistoryDBModel.TABLE_NAME + " ORDER BY "
+                + AlarmHistoryDBModel.COLUMN_TIMESTAMP + " DESC";
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(RAW_QUERY, null);
     }
 
     public Cursor getMyHistory() {
-        String RAW_QUERY = "select * from " + MyAlarmsDBModel.TABLE_NAME;
+        String RAW_QUERY = "select * from " + MyAlarmsDBModel.TABLE_NAME + " ORDER BY "
+                + MyAlarmsDBModel.COLUMN_TIMESTAMP + " DESC";
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(RAW_QUERY, null);
     }
