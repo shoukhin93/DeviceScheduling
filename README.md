@@ -12,7 +12,7 @@ B also can do the same task to A.
 
 To get schedule from another person, a user must add the sender/scheduler's phone number to his allowed list. To prevent an anonymous person to set a schedule, this security system is added. 
 
-##Allowed Numbers
+## Allowed Numbers
 To add allowed number simply type the number or select from the contact.
 
 **Note: No one can set schedule expect the numbers in the allowed numbers**
