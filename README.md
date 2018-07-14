@@ -17,6 +17,7 @@ To get schedule from another person, a user must add the sender/scheduler's phon
 ## Allowed Numbers
 
 To add allowed number simply type the number or select from the contact.
+
 <img src="/Screenshots/allowed numbers.png" width="200px"> 
 
 **Note: No one can set schedule expect the numbers in the allowed numbers**
@@ -36,7 +37,9 @@ After filling the fields simply enter the receiver's phone number click on set b
 ## History
 History contains the information who set schedule in your device. Also the detail information containing the image, sound, message he used can also be shown.
 
+<img src="/Screenshots/history.png" width="200px">
 
 ## My Schedules
 This section is to preview the schedules the user of the app set to other devices.
 
+<img src="/Screenshots/my schedules.png" width="200px">
