@@ -8,7 +8,7 @@ B also can do the same task to A.
 
 **Note: Standard SMS charge is applicable since schedule is set via sending a SMS**
 
-##How Scheduler Works
+## How Scheduler Works
 
 To get schedule from another person, a user must add the sender/scheduler's phone number to his allowed list. To prevent an anonymous person to set a schedule, this security system is added. 
 
@@ -17,7 +17,7 @@ To add allowed number simply type the number or select from the contact.
 
 **Note: No one can set schedule expect the numbers in the allowed numbers**
 
-##Add schedule
+## Add schedule
 To add schedule, select date, time picture and sound. There is another option **Receiver's Phone Mode** which can change receiver's phone status to **Silent**, **Vibrate**, **Ringing** or leave the phone status as it was.
 
 After filling the fields simply enter the receiver's phone number click on set button.
@@ -25,10 +25,10 @@ After filling the fields simply enter the receiver's phone number click on set b
 
 **Note: schedule will not be set unless receiver put your phone number to his allowed number list**
 
-##History
+## History
 History contains the information who set schedule in your device. Also the detail information containing the image, sound, message he used can also be shown.
 
 
-##My Schedules
+## My Schedules
 This section is to preview the schedules the user of the app set to other devices.
 
