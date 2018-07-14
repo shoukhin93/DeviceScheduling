@@ -24,9 +24,11 @@ To add allowed number simply type the number or select from the contact.
 ## Add schedule
 
 To add schedule, select date, time picture and sound. There is another option **Receiver's Phone Mode** which can change receiver's phone status to **Silent**, **Vibrate**, **Ringing** or leave the phone status as it was.
+
 <img src="/Screenshots/add schedule 1.png" width="200px">
 
 After filling the fields simply enter the receiver's phone number click on set button.
+
 <img src="/Screenshots/add schedule 2.png" width="200px">
 
 **Note: schedule will not be set unless receiver put your phone number to his allowed number list**
