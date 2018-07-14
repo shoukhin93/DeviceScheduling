@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import test.example.com.devicescheduling.Constants;
@@ -50,6 +52,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         holder.historyImageView.setImageResource(historyList.get(position).getImageResourceID());
         holder.historyMessageTextView.setText(historyList.get(position).getMessage());
         holder.historySetterNameTextView.setText(historyList.get(position).getSetterName());
+        Glide.with(context).load(historyList.get(position).getImageResourceID())
+                .into(holder.historyImageView);
         holder.historyDateTextView.setText(historyList.get(position).getTimestamp());
 
         if (isDefinedAsMySchedule) {
