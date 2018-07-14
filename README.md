@@ -6,7 +6,7 @@ A can then set a date and time with picture, sound, message etc. and can send it
 When the time and date will come, an alarm containing the sound, picture message etc.
 B also can do the same task to A.
 
-<img src="/screenshots/home 1.png" width="200px"> <img src="/screenshots/homw 2.png" width="200px">
+<img src="/Screenshots/home 1.png" width="200px"> <img src="/Screenshots/home 2.png" width="200px">
 
 **Note: Standard SMS charge is applicable since schedule is set via sending a SMS**
 
