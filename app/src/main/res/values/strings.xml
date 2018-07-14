@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DeviceScheduling</string>
+    <string name="app_name">Scheduler</string>
     <string name="instructions">With this app you can set a scheduled alarm with image and sound
         to any android smart phones.\n\n
         Of course the receiver must have this app installed and your phone number must be at
