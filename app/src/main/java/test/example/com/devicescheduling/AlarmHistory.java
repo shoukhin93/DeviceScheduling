@@ -65,7 +65,13 @@ public class AlarmHistory extends AppCompatActivity {
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP));
             historyModel.setTimestamp(formatTimeInMillisToDate(tempTimestamp));
 
-            historyData.add(historyModel);
+            Calendar currentTime = Calendar.getInstance();
+
+            // Show only those history which are already shown, hide otherwise
+            if (currentTime.getTimeInMillis() >= Long.parseLong(tempTimestamp))
+                historyData.add(historyModel);
+
+
         }
         historyAdapter.notifyDataSetChanged();
     }
