@@ -6,8 +6,8 @@ android {
         applicationId "drowsiness.example.com.devicescheduling"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 1
-        versionName "a1.0"
+        versionCode 3
+        versionName "V1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

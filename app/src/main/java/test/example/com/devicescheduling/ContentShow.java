@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ public class ContentShow extends AppCompatActivity {
     TextView receiverTextView;
     TextView messageTextView;
     MediaPlayer mediaPlayer = null;
+
+    int soundResourceID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class ContentShow extends AppCompatActivity {
 
         String tempSoundResourceID = detailInfo.getString
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_SOUND));
-        int soundResourceID = getSoundResourceId(tempSoundResourceID);
+        soundResourceID = getSoundResourceId(tempSoundResourceID);
 
         String message = detailInfo.getString
                 (detailInfo.getColumnIndex(AlarmHistoryDBModel.COLUMN_MESSAGE));
@@ -102,6 +105,8 @@ public class ContentShow extends AppCompatActivity {
 
     private void playSound(int soundResourceID) {
         mediaPlayer = MediaPlayer.create(this, soundResourceID);
+        mediaPlayer.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+        mediaPlayer.setScreenOnWhilePlaying(true);
         mediaPlayer.start();
     }
 
@@ -120,7 +125,6 @@ public class ContentShow extends AppCompatActivity {
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
             startActivity(intent);
         } else {
-            Log.d(Constants.LOGTAG, "in else");
             AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.setRingerMode(status);
         }
@@ -143,16 +147,20 @@ public class ContentShow extends AppCompatActivity {
         super.onPause();
         if (mediaPlayer != null) {
             mediaPlayer.stop();
+            mediaPlayer.release();
             mediaPlayer = null;
+           // Log.d(Constants.LOGTAG, " media player is null");
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mediaPlayer != null) {
-            mediaPlayer.start();
+        if (mediaPlayer == null) {
+          //  Log.d(Constants.LOGTAG, " media player not null");
+            playSound(soundResourceID);
         }
+
     }
 
     private String getSMSSenderName(String SMSSenderNumber) {
