@@ -1,5 +1,9 @@
 package test.example.com.devicescheduling.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 /**
  * Created by Shoukhin on 7/9/2018.
  */
@@ -62,5 +66,21 @@ public class HistoryModel {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public String getFormattedDate(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Long.parseLong(timestamp));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
+                Locale.ENGLISH);
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public String getFormattedTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Long.parseLong(timestamp));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a",
+                Locale.ENGLISH);
+        return dateFormat.format(calendar.getTime());
     }
 }

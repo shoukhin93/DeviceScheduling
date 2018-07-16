@@ -16,13 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 import test.example.com.devicescheduling.database.DatabaseHelper;
 import test.example.com.devicescheduling.database.model.MyAlarmsDBModel;
@@ -74,7 +71,7 @@ public class SetSchedule extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(SetSchedule.this,
-                                        MyAlarms.class);
+                                        MySchedules.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                         Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);

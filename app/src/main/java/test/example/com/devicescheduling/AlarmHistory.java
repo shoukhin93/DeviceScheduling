@@ -63,7 +63,7 @@ public class AlarmHistory extends AppCompatActivity {
 
             String tempTimestamp = scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP));
-            historyModel.setTimestamp(formatTimeInMillisToDate(tempTimestamp));
+            historyModel.setTimestamp(tempTimestamp);
 
             Calendar currentTime = Calendar.getInstance();
 
@@ -74,14 +74,6 @@ public class AlarmHistory extends AppCompatActivity {
 
         }
         historyAdapter.notifyDataSetChanged();
-    }
-
-    private String formatTimeInMillisToDate(String timestamp) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(timestamp));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
-                Locale.ENGLISH);
-        return dateFormat.format(calendar.getTime());
     }
 
     private String getPhoneNumberWithName(String phoneNumber) {

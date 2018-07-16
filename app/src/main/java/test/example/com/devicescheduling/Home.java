@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
@@ -73,7 +70,7 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_history) {
             startActivity(new Intent(this, AlarmHistory.class));
         } else if (id == R.id.nav_my_schedule) {
-            startActivity(new Intent(this, MyAlarms.class));
+            startActivity(new Intent(this, MySchedules.class));
         } else if (id == R.id.nav_add_schedule) {
             startActivity(new Intent(this, AddSchedule.class));
         } else if (id == R.id.nav_allowed_numbers) {

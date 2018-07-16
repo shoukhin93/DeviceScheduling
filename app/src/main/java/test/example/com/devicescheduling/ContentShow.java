@@ -149,7 +149,6 @@ public class ContentShow extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
-           // Log.d(Constants.LOGTAG, " media player is null");
         }
     }
 
@@ -157,7 +156,6 @@ public class ContentShow extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (mediaPlayer == null) {
-          //  Log.d(Constants.LOGTAG, " media player not null");
             playSound(soundResourceID);
         }
 

@@ -21,7 +21,7 @@ import test.example.com.devicescheduling.models.HistoryModel;
 import test.example.com.devicescheduling.resourceManager.ResourceManager;
 import test.example.com.devicescheduling.sharedPreferenceManager.SharedPrefManager;
 
-public class MyAlarms extends AppCompatActivity {
+public class MySchedules extends AppCompatActivity {
     private ArrayList<HistoryModel> historyData = new ArrayList<>();
     RecyclerView historyRecyclerView;
     HistoryAdapter historyAdapter;
@@ -65,19 +65,11 @@ public class MyAlarms extends AppCompatActivity {
 
             String tempTimestamp = scheduleHistory.getString
                     (scheduleHistory.getColumnIndex(AlarmHistoryDBModel.COLUMN_TIMESTAMP));
-            historyModel.setTimestamp(formatTimeInMillisToDate(tempTimestamp));
+            historyModel.setTimestamp(tempTimestamp);
 
             historyData.add(historyModel);
         }
         historyAdapter.notifyDataSetChanged();
-    }
-
-    private String formatTimeInMillisToDate(String timestamp) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(timestamp));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
-                Locale.ENGLISH);
-        return dateFormat.format(calendar.getTime());
     }
 
     private String getPhoneNumberWithName(String phoneNumber) {

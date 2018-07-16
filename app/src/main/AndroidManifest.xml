@@ -77,7 +77,7 @@
         </activity>
 
         <activity
-            android:name=".MyAlarms"
+            android:name=".MySchedules"
             android:label="@string/title_activity_my_schedules">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

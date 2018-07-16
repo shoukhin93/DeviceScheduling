@@ -1,6 +1,5 @@
 package test.example.com.devicescheduling.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -54,7 +53,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         holder.historySetterNameTextView.setText(historyList.get(position).getSetterName());
         Glide.with(context).load(historyList.get(position).getImageResourceID())
                 .into(holder.historyImageView);
-        holder.historyDateTextView.setText(historyList.get(position).getTimestamp());
+        holder.historyDateTextView.setText(historyList.get(position).getFormattedDate());
+        holder.historyTimeTextView.setText(historyList.get(position).getFormattedTime());
 
         if (isDefinedAsMySchedule) {
             holder.receiverTextView.setText("To: ");
@@ -91,6 +91,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         TextView receiverTextView;
         TextView historySetterNameTextView;
         TextView historyDateTextView;
+        TextView historyTimeTextView;
         LinearLayout historyRootLayout;
 
         public ItemViewHolder(View view) {
@@ -98,7 +99,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
             historyImageView = view.findViewById(R.id.schedule_image_view);
             historyMessageTextView = view.findViewById(R.id.schedule_message_text_view);
             historySetterNameTextView = view.findViewById(R.id.schedule_setter_name_text_view);
-            historyDateTextView = view.findViewById(R.id.schedule_time_text_view);
+            historyDateTextView = view.findViewById(R.id.schedule_date_text_view);
+            historyTimeTextView = view.findViewById(R.id.schedule_time_text_view);
             receiverTextView = view.findViewById(R.id.receiver_text_view);
             historyRootLayout = view.findViewById(R.id.history_root_layout);
         }
