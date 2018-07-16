@@ -89,6 +89,21 @@ public class ContentShow extends AppCompatActivity {
             changePhoneStatus(phoneStatus);
 
         playSound(soundResourceID);
+        setVolume(phoneStatus);
+    }
+
+    private void setVolume(int phoneStatus) {
+        int defaultPhoneStatus = -1;
+        if (phoneStatus == AudioManager.RINGER_MODE_NORMAL)
+            mediaPlayer.setVolume(1.0f, 1.0f);
+        else if (phoneStatus == defaultPhoneStatus) {
+            AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+            if (audioManager != null && audioManager.getRingerMode()
+                    == AudioManager.RINGER_MODE_NORMAL) {
+                mediaPlayer.setVolume(1.0f, 1.0f);
+            }
+        }
     }
 
     private void setSenderPhoneAndNameText(String number, String name) {
